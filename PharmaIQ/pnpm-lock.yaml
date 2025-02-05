@@ -12,7 +12,7 @@ importers:
         specifier: 0.4.2
         version: 0.4.2
       '@expo/vector-icons':
-        specifier: ^14.0.2
+        specifier: ^14.0.4
         version: 14.0.4
       '@gluestack-ui/accordion':
         specifier: ^1.0.8
@@ -29,6 +29,9 @@ importers:
       '@gluestack-ui/icon':
         specifier: ^0.1.25
         version: 0.1.25(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
+      '@gluestack-ui/input':
+        specifier: ^0.1.32
+        version: 0.1.32(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
       '@gluestack-ui/nativewind-utils':
         specifier: ^1.0.26
         version: 1.0.26(nativewind@4.1.23(react-native-reanimated@3.16.7(@babel/core@7.26.7)(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native-safe-area-context@5.2.0(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native-svg@15.2.0(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.17))(react@18.3.1)(tailwindcss@3.4.17)
@@ -89,6 +92,9 @@ importers:
       expo-web-browser:
         specifier: ~14.0.2
         version: 14.0.2(expo@52.0.30(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@expo/metro-runtime@4.0.1(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1)))(react-native-webview@13.12.5(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))
+      fuse.js:
+        specifier: ^7.1.0
+        version: 7.1.0
       nativewind:
         specifier: ^4.1.23
         version: 4.1.23(react-native-reanimated@3.16.7(@babel/core@7.26.7)(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native-safe-area-context@5.2.0(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native-svg@15.2.0(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.17)
@@ -133,19 +139,19 @@ importers:
         version: 3.4.17
     devDependencies:
       '@babel/core':
-        specifier: ^7.25.2
+        specifier: ^7.26.7
         version: 7.26.7
       '@types/jest':
-        specifier: ^29.5.12
+        specifier: ^29.5.14
         version: 29.5.14
       '@types/react':
-        specifier: ~18.3.12
+        specifier: ~18.3.18
         version: 18.3.18
       '@types/react-test-renderer':
-        specifier: ^18.3.0
+        specifier: ^18.3.1
         version: 18.3.1
       jest:
-        specifier: ^29.2.1
+        specifier: ^29.7.0
         version: 29.7.0(@types/node@22.13.1)
       jest-expo:
         specifier: ~52.0.3
@@ -157,7 +163,7 @@ importers:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
 
 packages:
@@ -1019,6 +1025,12 @@ packages:
       react: '>=16'
       react-dom: '>=16'
 
+  '@gluestack-ui/form-control@0.1.19':
+    resolution: {integrity: sha512-6YbPbi/RZrXc5DyVPbxPV17FYaBoEl1yAdSwut8iE6n+yQekjluINrh2q5ZPWF2SGmyo7VSNcL85yeU5I97xHg==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+
   '@gluestack-ui/hooks@0.1.12':
     resolution: {integrity: sha512-jMZS+aIPYvouRKkWUzOYFKeWyt+YFIojYFuSq8sNZTjAq72xtiKZQKxNwOgTorEDD4CAIk0bncRS0TneNSuMAA==}
     peerDependencies:
@@ -1027,6 +1039,12 @@ packages:
 
   '@gluestack-ui/icon@0.1.25':
     resolution: {integrity: sha512-HCyiHHHZzHpP5MIy5F2hP8iBc+0yt2NNM+jhbPYeoRG4WY7wc1whaUs9EIQvj880cq/zxOQP0Bz4mnyhuKsEKQ==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+
+  '@gluestack-ui/input@0.1.32':
+    resolution: {integrity: sha512-RWtqpo0p37GYjwBTiMf4fpvKYe32OMa6lxFbDqPqEX1m994D9QwP7iWnDWA/9nr/Mf3eET6dMWbH4/eL4oZr8Q==}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
@@ -2812,6 +2830,10 @@ packages:
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
 
+  fuse.js@7.1.0:
+    resolution: {integrity: sha512-trLf4SzuuUxfusZADLINj+dE8clK1frKdmqiJNb1Es75fmI5oY6X2mxLVUciLLjxqw/xr72Dhy+lER6dGd02FQ==}
+    engines: {node: '>=10'}
+
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -4426,6 +4448,11 @@ packages:
 
   rimraf@2.6.3:
     resolution: {integrity: sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
+    hasBin: true
+
+  rimraf@2.7.1:
+    resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
     deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
@@ -6485,6 +6512,15 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  '@gluestack-ui/form-control@0.1.19(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@gluestack-ui/utils': 0.1.14(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
+      '@react-native-aria/focus': 0.2.9(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    transitivePeerDependencies:
+      - react-native
+
   '@gluestack-ui/hooks@0.1.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
@@ -6495,6 +6531,17 @@ snapshots:
       '@gluestack-ui/provider': 0.1.13(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
       '@gluestack-ui/utils': 0.1.14(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
       '@react-native-aria/focus': 0.2.9(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    transitivePeerDependencies:
+      - react-native
+
+  '@gluestack-ui/input@0.1.32(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@gluestack-ui/form-control': 0.1.19(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
+      '@gluestack-ui/utils': 0.1.14(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
+      '@react-native-aria/focus': 0.2.9(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
+      '@react-native-aria/interactions': 0.2.13(react-dom@18.3.1(react@18.3.1))(react-native@0.76.6(@babel/core@7.26.7)(@babel/preset-env@7.26.7(@babel/core@7.26.7))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
@@ -8701,6 +8748,8 @@ snapshots:
 
   function-bind@1.1.2: {}
 
+  fuse.js@7.1.0: {}
+
   gensync@1.0.0-beta.2: {}
 
   get-caller-file@2.0.5: {}
@@ -10188,7 +10237,7 @@ snapshots:
       klaw-sync: 6.0.0
       minimist: 1.2.8
       open: 7.4.2
-      rimraf: 2.6.3
+      rimraf: 2.7.1
       semver: 7.7.1
       slash: 2.0.0
       tmp: 0.0.33
@@ -10678,6 +10727,10 @@ snapshots:
   reusify@1.0.4: {}
 
   rimraf@2.6.3:
+    dependencies:
+      glob: 7.2.3
+
+  rimraf@2.7.1:
     dependencies:
       glob: 7.2.3
 

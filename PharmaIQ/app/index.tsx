@@ -1,19 +1,20 @@
 import { Link } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
-  AccordionTitleText,
-  AccordionContentText,
-  AccordionIcon,
-  AccordionContent,
-} from "@/components/ui/accordion";
-import { Divider } from "@/components/ui/divider";
-import { ChevronUpIcon, ChevronDownIcon } from "@/components/ui/icon";
+import { SearchIcon } from "@/components/ui/icon";
 import { Button, ButtonText } from "@/components/ui/button";
+import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableData,
+} from "@/components/ui/table";
+import { fuzzySearch } from "@/utils/search";
+import type { FuseResult } from "fuse.js";
 
 export default function Page() {
   return (
@@ -24,6 +25,14 @@ export default function Page() {
 }
 
 function Content() {
+  const [results, setResults] = useState<FuseResult<any>[]>([]);
+
+  const runFuzzySearch = (query: string) => {
+    // Replace with actual fuzzy search logic
+    const matched = fuzzySearch(query);
+    setResults(matched);
+  };
+
   return (
     <View className="py-12 md:py-24 lg:py-32 xl:py-48">
       <View className="px-4 md:px-6">
@@ -53,82 +62,38 @@ function Content() {
           </View>
 
           <View className="gap-4">
-            <Accordion
-              size="md"
-              variant="filled"
-              type="single"
-              isCollapsible={true}
-              isDisabled={false}
-              className="m-5 w-[90%] border border-outline-200"
-            >
-              <AccordionItem value="a">
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {({ isExpanded }) => {
-                      return (
-                        <>
-                          <AccordionTitleText>
-                            How do I place an order?
-                          </AccordionTitleText>
-                          {isExpanded ? (
-                            <AccordionIcon
-                              as={ChevronUpIcon}
-                              className="ml-3"
-                            />
-                          ) : (
-                            <AccordionIcon
-                              as={ChevronDownIcon}
-                              className="ml-3"
-                            />
-                          )}
-                        </>
-                      );
-                    }}
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionContent>
-                  <AccordionContentText>
-                    To place an order, simply select the products you want,
-                    proceed to checkout, provide shipping and payment
-                    information, and finalize your purchase.
-                  </AccordionContentText>
-                </AccordionContent>
-              </AccordionItem>
-              <Divider />
-              <AccordionItem value="b">
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {({ isExpanded }) => {
-                      return (
-                        <>
-                          <AccordionTitleText>
-                            What payment methods do you accept?
-                          </AccordionTitleText>
-                          {isExpanded ? (
-                            <AccordionIcon
-                              as={ChevronUpIcon}
-                              className="ml-3"
-                            />
-                          ) : (
-                            <AccordionIcon
-                              as={ChevronDownIcon}
-                              className="ml-3"
-                            />
-                          )}
-                        </>
-                      );
-                    }}
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionContent>
-                  <AccordionContentText>
-                    We accept all major credit cards, including Visa,
-                    Mastercard, and American Express. We also support payments
-                    through PayPal.
-                  </AccordionContentText>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+            <Input>
+              <InputSlot className="pl-3">
+                <InputIcon as={SearchIcon} />
+              </InputSlot>
+              <InputField
+                placeholder="Search..."
+                onChangeText={(text) => {
+                  runFuzzySearch(text);
+                }}
+              />
+            </Input>
+          </View>
+
+          <View className="gap-4">
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Customer Name</TableHead>
+                  <TableHead>Units</TableHead>
+                  <TableHead>Costs</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {results.map((obj, idx) => (
+                  <TableRow key={idx}>
+                    <TableData>{obj.item.title}</TableData>
+                    <TableData>{obj.item.author}</TableData>
+                    <TableData>{obj.item.tags.join(", ")}</TableData>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </View>
         </View>
       </View>
