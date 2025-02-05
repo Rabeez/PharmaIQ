@@ -23,10 +23,11 @@ function Content() {
               role="heading"
               className="text-center text-3xl font-bold tracking-tighter color-red-400 native:text-5xl sm:text-4xl md:text-5xl lg:text-6xl"
             >
-              Welcome to Project ACME
+              Welcome to PharmaIQ
             </Text>
             <Text className="mx-auto max-w-[700px] text-center text-lg text-gray-500 md:text-xl dark:text-gray-400">
-              Discover and collaborate on acme. Explore our services now.
+              Discover and collaborate on drug information. Explore our services
+              now.
             </Text>
 
             <View className="gap-4">
@@ -51,7 +52,7 @@ function Header() {
     <View style={{ paddingTop: top }}>
       <View className="flex h-14 flex-row items-center justify-between px-4 lg:px-6 ">
         <Link className="flex-1 items-center justify-center font-bold" href="/">
-          ACME
+          PharmaIQ
         </Link>
         <View className="flex flex-row gap-4 sm:gap-6">
           <Link
