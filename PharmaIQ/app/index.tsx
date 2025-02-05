@@ -1,6 +1,19 @@
 import { Link } from "expo-router";
 import React from "react";
 import { Text, View } from "react-native";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionTrigger,
+  AccordionTitleText,
+  AccordionContentText,
+  AccordionIcon,
+  AccordionContent,
+} from "@/components/ui/accordion";
+import { Divider } from "@/components/ui/divider";
+import { ChevronUpIcon, ChevronDownIcon } from "@/components/ui/icon";
+import { Button, ButtonText } from "@/components/ui/button";
 
 export default function Page() {
   return (
@@ -27,13 +40,95 @@ function Content() {
           </Text>
 
           <View className="gap-4">
-            <Link
-              suppressHighlighting
-              className="web:shadow web:focus-visible:outline-none web:focus-visible:ring-1 flex h-9 items-center justify-center overflow-hidden rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 transition-colors hover:bg-gray-900/90 focus-visible:ring-gray-950 active:bg-gray-400/90 disabled:opacity-50 disabled:pointer-events-none ios:shadow dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              href="/"
+            <Button
+              size="md"
+              variant="outline"
+              action="primary"
+              className="flex h-9 text-sm"
             >
-              Explore
-            </Link>
+              <Link suppressHighlighting href="/">
+                <ButtonText>Explore</ButtonText>
+              </Link>
+            </Button>
+          </View>
+
+          <View className="gap-4">
+            <Accordion
+              size="md"
+              variant="filled"
+              type="single"
+              isCollapsible={true}
+              isDisabled={false}
+              className="m-5 w-[90%] border border-outline-200"
+            >
+              <AccordionItem value="a">
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {({ isExpanded }) => {
+                      return (
+                        <>
+                          <AccordionTitleText>
+                            How do I place an order?
+                          </AccordionTitleText>
+                          {isExpanded ? (
+                            <AccordionIcon
+                              as={ChevronUpIcon}
+                              className="ml-3"
+                            />
+                          ) : (
+                            <AccordionIcon
+                              as={ChevronDownIcon}
+                              className="ml-3"
+                            />
+                          )}
+                        </>
+                      );
+                    }}
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionContent>
+                  <AccordionContentText>
+                    To place an order, simply select the products you want,
+                    proceed to checkout, provide shipping and payment
+                    information, and finalize your purchase.
+                  </AccordionContentText>
+                </AccordionContent>
+              </AccordionItem>
+              <Divider />
+              <AccordionItem value="b">
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {({ isExpanded }) => {
+                      return (
+                        <>
+                          <AccordionTitleText>
+                            What payment methods do you accept?
+                          </AccordionTitleText>
+                          {isExpanded ? (
+                            <AccordionIcon
+                              as={ChevronUpIcon}
+                              className="ml-3"
+                            />
+                          ) : (
+                            <AccordionIcon
+                              as={ChevronDownIcon}
+                              className="ml-3"
+                            />
+                          )}
+                        </>
+                      );
+                    }}
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionContent>
+                  <AccordionContentText>
+                    We accept all major credit cards, including Visa,
+                    Mastercard, and American Express. We also support payments
+                    through PayPal.
+                  </AccordionContentText>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </View>
         </View>
       </View>
