@@ -75,34 +75,36 @@ function Content() {
           </View>
 
           <View className="w-full gap-4">
-            <Table className="w-full">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Author</TableHead>
-                  <TableHead>Tags</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {results.map((obj, idx) => (
-                  <Link
-                    className="w-full"
-                    key={idx}
-                    href={{
-                      pathname: "/item",
-                      params: { data: JSON.stringify(obj.item) },
-                    }}
-                    asChild
-                  >
-                    <Pressable>
-                      <TableRow key={idx}>
-                        <TableData>{obj.item.author}</TableData>
-                        <TableData>{obj.item.tags.join(", ")}</TableData>
-                      </TableRow>
-                    </Pressable>
-                  </Link>
-                ))}
-              </TableBody>
-            </Table>
+            {results.length > 0 && (
+              <Table className="w-full">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Author</TableHead>
+                    <TableHead>Tags</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {results.map((obj, idx) => (
+                    <Link
+                      className="w-full"
+                      key={idx}
+                      href={{
+                        pathname: "/item",
+                        params: { data: JSON.stringify(obj.item) },
+                      }}
+                      asChild
+                    >
+                      <Pressable>
+                        <TableRow key={idx}>
+                          <TableData>{obj.item.author}</TableData>
+                          <TableData>{obj.item.tags.join(", ")}</TableData>
+                        </TableRow>
+                      </Pressable>
+                    </Link>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </View>
         </View>
       </View>
