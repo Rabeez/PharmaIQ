@@ -1,3 +1,4 @@
+import { ItemType } from "@/app/item";
 import Fuse from "fuse.js";
 
 export function fuzzySearch(text: string) {
@@ -23,6 +24,7 @@ export function fuzzySearch(text: string) {
 
   const fuse = new Fuse(data, options);
   const result = fuse.search(text.trim());
+  const result_items = result.map((obj) => obj.item as ItemType);
 
-  return result;
+  return result_items;
 }

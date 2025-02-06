@@ -2,7 +2,7 @@ import { VStack } from "@/components/ui/vstack";
 import { useLocalSearchParams } from "expo-router";
 import { View, Text } from "react-native";
 
-type ItemType = { title: string; author: string; tags: string[] };
+export type ItemType = { title: string; author: string; tags: string[] };
 
 export default function Page() {
   const { data } = useLocalSearchParams();

@@ -1,19 +1,12 @@
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { SearchIcon } from "@/components/ui/icon";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableData,
-} from "@/components/ui/table";
 import { fuzzySearch } from "@/utils/search";
-import type { FuseResult } from "fuse.js";
+import { SearchResultsTable } from "@/components/SearchResultsTable";
+import { ItemType } from "./item";
 
 export default function Page() {
   return (
@@ -24,7 +17,7 @@ export default function Page() {
 }
 
 function Content() {
-  const [results, setResults] = useState<FuseResult<any>[]>([]);
+  const [results, setResults] = useState<ItemType[]>([]);
 
   const runFuzzySearch = (query: string) => {
     // Replace with actual fuzzy search logic
@@ -75,36 +68,7 @@ function Content() {
           </View>
 
           <View className="w-full gap-4">
-            {results.length > 0 && (
-              <Table className="w-full">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Author</TableHead>
-                    <TableHead>Tags</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {results.map((obj, idx) => (
-                    <Link
-                      className="w-full"
-                      key={idx}
-                      href={{
-                        pathname: "/item",
-                        params: { data: JSON.stringify(obj.item) },
-                      }}
-                      asChild
-                    >
-                      <Pressable>
-                        <TableRow key={idx}>
-                          <TableData>{obj.item.author}</TableData>
-                          <TableData>{obj.item.tags.join(", ")}</TableData>
-                        </TableRow>
-                      </Pressable>
-                    </Link>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
+            {results.length > 0 && <SearchResultsTable results={results} />}
           </View>
         </View>
       </View>
