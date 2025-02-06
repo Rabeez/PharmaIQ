@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { SearchIcon } from "@/components/ui/icon";
 import { Button, ButtonText } from "@/components/ui/button";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
@@ -8,7 +8,6 @@ import {
   Table,
   TableHeader,
   TableBody,
-  TableFooter,
   TableHead,
   TableRow,
   TableData,
@@ -18,7 +17,7 @@ import type { FuseResult } from "fuse.js";
 
 export default function Page() {
   return (
-    <View className="flex flex-1">
+    <View className="flex flex-1 p-2">
       <Content />
     </View>
   );
@@ -61,7 +60,7 @@ function Content() {
             </Button>
           </View>
 
-          <View className="gap-4">
+          <View className="w-full gap-4">
             <Input>
               <InputSlot className="pl-3">
                 <InputIcon as={SearchIcon} />
@@ -75,22 +74,32 @@ function Content() {
             </Input>
           </View>
 
-          <View className="gap-4">
+          <View className="w-full gap-4">
             <Table className="w-full">
               <TableHeader>
                 <TableRow>
-                  <TableHead>Customer Name</TableHead>
-                  <TableHead>Units</TableHead>
-                  <TableHead>Costs</TableHead>
+                  <TableHead>Author</TableHead>
+                  <TableHead>Tags</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {results.map((obj, idx) => (
-                  <TableRow key={idx}>
-                    <TableData>{obj.item.title}</TableData>
-                    <TableData>{obj.item.author}</TableData>
-                    <TableData>{obj.item.tags.join(", ")}</TableData>
-                  </TableRow>
+                  <Link
+                    className="w-full"
+                    key={idx}
+                    href={{
+                      pathname: "/item",
+                      params: { data: JSON.stringify(obj.item) },
+                    }}
+                    asChild
+                  >
+                    <Pressable>
+                      <TableRow key={idx}>
+                        <TableData>{obj.item.author}</TableData>
+                        <TableData>{obj.item.tags.join(", ")}</TableData>
+                      </TableRow>
+                    </Pressable>
+                  </Link>
                 ))}
               </TableBody>
             </Table>
