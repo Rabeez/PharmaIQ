@@ -38,3 +38,6 @@ yarn-error.*
 # expo eas build directories
 ios
 android
+
+# sample files
+original
