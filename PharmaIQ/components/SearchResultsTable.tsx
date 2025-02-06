@@ -10,7 +10,7 @@ import { ItemType } from "@/app/item";
 import { Link } from "expo-router";
 import { Pressable } from "react-native";
 
-export function SearchResultsTable({ results }: { results: ItemType[] }) {
+export function SearchResultsTable({ results }: { results: string[] }) {
   return (
     <Table className="w-full">
       <TableHeader>
@@ -32,8 +32,8 @@ export function SearchResultsTable({ results }: { results: ItemType[] }) {
           >
             <Pressable>
               <TableRow key={idx}>
-                <TableData>{obj.author}</TableData>
-                <TableData>{obj.tags.join(", ")}</TableData>
+                <TableData>{obj}</TableData>
+                {/* <TableData>{obj.tags.join(", ")}</TableData> */}
               </TableRow>
             </Pressable>
           </Link>

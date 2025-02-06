@@ -1,30 +1,32 @@
 import { ItemType } from "@/app/item";
 import Fuse from "fuse.js";
 
-export function fuzzySearch(text: string) {
-  const data = [
-    {
-      title: "Old Man's War",
-      author: "John Scalzi",
-      tags: ["fiction"],
-    },
-    {
-      title: "The Lock Artist",
-      author: "Steve",
-      tags: ["thriller"],
-    },
-  ];
+export function fuzzySearch(text: string, data: string[]) {
+  // const data = [
+  //   {
+  //     title: "Old Man's War",
+  //     author: "John Scalzi",
+  //     tags: ["fiction"],
+  //   },
+  //   {
+  //     title: "The Lock Artist",
+  //     author: "Steve",
+  //     tags: ["thriller"],
+  //   },
+  // ];
 
   const options = {
     isCaseSensitive: false,
     includeScore: true,
-    // Search in `author` and in `tags` array
-    keys: ["author", "tags"],
+    minMatchCharLength: 3,
+    shouldSort: true,
+    // keys: ["author", "tags"],
   };
+  const top = 6;
 
   const fuse = new Fuse(data, options);
   const result = fuse.search(text.trim());
-  const result_items = result.map((obj) => obj.item as ItemType);
+  const result_items = result.slice(0, top).map((obj) => obj.item as string);
 
   return result_items;
 }

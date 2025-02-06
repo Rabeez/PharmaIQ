@@ -3,14 +3,16 @@ import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { Link, Slot } from "expo-router";
 import { View, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Button } from "@/components/ui/button";
+import { DBProvider } from "./dbContext";
 
 export default function Layout() {
   return (
-    <>
+    <DBProvider>
       <Header />
       <Slot />
       <Footer />
-    </>
+    </DBProvider>
   );
 }
 
@@ -19,23 +21,31 @@ function Header() {
   return (
     <GluestackUIProvider mode="light">
       <View style={{ paddingTop: top }}>
-        <View className="flex h-14 flex-row items-center justify-between px-4 lg:px-6 ">
-          <View className="flex-1 items-start justify-center font-bold">
-            <Link href="/">PharmaIQ</Link>
+        <View className="flex h-14 flex-row items-center justify-between px-4 align-middle lg:px-6 ">
+          <View className="flex-1 items-start justify-center align-middle font-bold">
+            <Button size="md" variant="link" action="primary">
+              <Link className="h-full w-full" href="/">
+                PharmaIQ
+              </Link>
+            </Button>
           </View>
           <View className="flex flex-row gap-4 sm:gap-6">
-            <Link
-              className="text-md web:underline-offset-4 font-medium hover:underline"
-              href="/about"
-            >
-              About
-            </Link>
-            <Link
-              className="text-md web:underline-offset-4 font-medium hover:underline"
-              href="/"
-            >
-              Product
-            </Link>
+            <Button size="md" variant="link" action="primary">
+              <Link
+                className="text-md web:underline-offset-4 h-full w-full align-middle font-medium hover:underline"
+                href="/about"
+              >
+                About
+              </Link>
+            </Button>
+            <Button size="md" variant="link" action="primary">
+              <Link
+                className="text-md web:underline-offset-4 h-full w-full font-medium hover:underline"
+                href="/"
+              >
+                Product
+              </Link>
+            </Button>
           </View>
         </View>
       </View>

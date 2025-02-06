@@ -7,6 +7,7 @@ import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { fuzzySearch } from "@/utils/search";
 import { SearchResultsTable } from "@/components/SearchResultsTable";
 import { ItemType } from "./item";
+import { useDB } from "./dbContext";
 
 export default function Page() {
   return (
@@ -17,11 +18,12 @@ export default function Page() {
 }
 
 function Content() {
-  const [results, setResults] = useState<ItemType[]>([]);
+  const { data } = useDB();
+  const [results, setResults] = useState<string[]>([]);
 
   const runFuzzySearch = (query: string) => {
     // Replace with actual fuzzy search logic
-    const matched = fuzzySearch(query);
+    const matched = fuzzySearch(query, data);
     setResults(matched);
   };
 
