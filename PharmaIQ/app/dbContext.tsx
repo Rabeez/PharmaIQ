@@ -1,4 +1,4 @@
-import useDatabase from "@/utils/db";
+import useDatabase from "@/utils/data_interface";
 import React, { createContext, useContext } from "react";
 
 interface DBContextType {

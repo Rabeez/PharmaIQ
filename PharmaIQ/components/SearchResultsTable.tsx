@@ -6,7 +6,6 @@ import {
   TableRow,
   TableData,
 } from "@/components/ui/table";
-import { ItemType } from "@/app/item";
 import { Link } from "expo-router";
 import { Pressable } from "react-native";
 
@@ -24,10 +23,7 @@ export function SearchResultsTable({ results }: { results: string[] }) {
           <Link
             className="w-full"
             key={idx}
-            href={{
-              pathname: "/item",
-              params: { data: JSON.stringify(obj) },
-            }}
+            href={`/item/${encodeURIComponent(obj)}`}
             asChild
           >
             <Pressable>
