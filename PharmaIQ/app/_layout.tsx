@@ -4,7 +4,7 @@ import { Link, Slot } from "expo-router";
 import { View, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "@/components/ui/button";
-import { DBProvider } from "./dbContext";
+import { DBProvider } from "@/utils/data_interface";
 
 export default function Layout() {
   return (

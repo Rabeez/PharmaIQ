@@ -6,7 +6,7 @@ import { Button, ButtonText } from "@/components/ui/button";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { fuzzySearch } from "@/utils/search";
 import { SearchResultsTable } from "@/components/SearchResultsTable";
-import { useDB } from "./dbContext";
+import { useDB } from "@/utils/data_interface";
 
 export default function Page() {
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import { executeQuery } from "./db"; // Metro picks db.native.ts on native, db.web.ts on web
 
 // Define your DrugDetails interface as needed
@@ -51,3 +51,20 @@ export default function useDatabase(): string[] {
 
   return data;
 }
+
+// TODO: this is specifically for initial data (source for search)
+// need to make this better AND/OR use same TS interface for this and actual search/fetch function
+interface DBContextType {
+  data: string[];
+}
+
+const DBContext = createContext<DBContextType>({ data: [] });
+
+export const DBProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const data = useDatabase();
+  return <DBContext.Provider value={{ data }}>{children}</DBContext.Provider>;
+};
+
+export const useDB = () => useContext(DBContext);
