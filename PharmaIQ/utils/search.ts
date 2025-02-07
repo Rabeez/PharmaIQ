@@ -1,4 +1,3 @@
-import { ItemType } from "@/app/item";
 import Fuse from "fuse.js";
 
 export function fuzzySearch(text: string, data: string[]) {
