@@ -3,9 +3,9 @@ import { executeQuery } from "./db"; // Metro picks db.native.ts on native, db.w
 
 // Define your DrugDetails interface as needed
 export interface DrugDetails {
-  name: string;
-  overview: string;
-  characteristics: string;
+  NAME: string;
+  OVERVIEW: string;
+  CHARACTERSTICS: string;
 }
 
 export async function fetchDrugDetails(
@@ -24,11 +24,12 @@ export async function fetchDrugDetails(
   const drug = results[0];
   console.log("Parsed drug details:", drug);
 
-  return {
-    name: drug.name ?? "Unknown",
-    overview: drug.overview ?? "No Overview",
-    characteristics: drug.characteristics ?? "No Characteristics",
-  };
+  return drug;
+  // return {
+  //   name: drug.name ?? "Unknown",
+  //   overview: drug.overview ?? "No Overview",
+  //   characteristics: drug.characteristics ?? "No Characteristics",
+  // };
 }
 
 async function loadSearchData(setData: (data: string[]) => void) {

@@ -23,7 +23,7 @@ export function SearchResultsTable({ results }: { results: string[] }) {
           <Link
             className="w-full"
             key={idx}
-            href={`/item/${encodeURIComponent(obj)}`}
+            href={`/drug/${encodeURIComponent(obj)}`}
             asChild
           >
             <Pressable>
