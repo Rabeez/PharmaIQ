@@ -20,31 +20,8 @@ export default function Page() {
   };
 
   return (
-    <View className="flex flex-col items-center gap-2 px-4 py-12 text-center md:px-6 md:py-24 lg:py-32 xl:py-48">
-      <Text
-        role="heading"
-        className="text-center text-3xl font-bold tracking-tighter color-red-400 native:text-5xl sm:text-4xl md:text-5xl lg:text-6xl"
-      >
-        Welcome to PharmaIQ
-      </Text>
-      <Text className="mx-auto max-w-[700px] text-center text-lg text-gray-500 md:text-xl dark:text-gray-400">
-        Discover and collaborate on drug information. Explore our services now.
-      </Text>
-
-      <View className="gap-4">
-        <Button
-          size="md"
-          variant="outline"
-          action="primary"
-          className="flex h-9 text-sm"
-        >
-          <Link suppressHighlighting href="/">
-            <ButtonText>Explore</ButtonText>
-          </Link>
-        </Button>
-      </View>
-
-      <View className="w-full gap-4">
+    <View className="flex flex-col items-center gap-2 px-4 text-center md:px-6 md:py-24 lg:py-32 xl:py-48">
+      <View className="w-full">
         <Input>
           <InputSlot className="pl-3">
             <InputIcon as={SearchIcon} />
@@ -58,7 +35,7 @@ export default function Page() {
         </Input>
       </View>
 
-      <View className="w-full gap-4">
+      <View className="w-full">
         {results.length > 0 && <SearchResultsTable results={results} />}
       </View>
     </View>
