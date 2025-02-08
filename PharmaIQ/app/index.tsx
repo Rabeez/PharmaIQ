@@ -20,7 +20,7 @@ export default function Page() {
   };
 
   return (
-    <View className="flex flex-col items-center gap-4 px-4 py-12 text-center md:px-6 md:py-24 lg:py-32 xl:py-48">
+    <View className="flex flex-col items-center gap-2 px-4 py-12 text-center md:px-6 md:py-24 lg:py-32 xl:py-48">
       <Text
         role="heading"
         className="text-center text-3xl font-bold tracking-tighter color-red-400 native:text-5xl sm:text-4xl md:text-5xl lg:text-6xl"
