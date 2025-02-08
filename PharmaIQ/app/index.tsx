@@ -9,6 +9,7 @@ import { SearchResultsTable } from "@/components/SearchResultsTable";
 import { useDB } from "@/utils/data_interface";
 
 export default function Page() {
+  // TODO: is this needed? shouldnt parent DBProvider pass this implicitly?
   const { data } = useDB();
   const [results, setResults] = useState<string[]>([]);
 
