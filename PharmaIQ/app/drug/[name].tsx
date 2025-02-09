@@ -8,6 +8,7 @@ export default function Page() {
   const { name } = useLocalSearchParams() as { name: string };
   const [detail, setDetail] = useState<DrugDetails | null>(null);
 
+  // TODO: try useQuery for caching with key=name
   useEffect(() => {
     async function fetchDetail() {
       console.log("Fetching details for:", name);
