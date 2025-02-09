@@ -16,6 +16,8 @@ const CustomDivider = () => <Divider className="my-0.5" />;
 const SearchHeader = () => <Heading className="my-1">Search results</Heading>;
 
 export function SearchResultsTable({ results }: { results: string[] }) {
+  // TODO: "scroll-to-top" button visible automatically for long lists etc
+  // https://youtu.be/pZgjlh5ezd4?si=pypM7_5kkBwy6Q2Z&t=683
   return (
     <FlashList
       data={results}
