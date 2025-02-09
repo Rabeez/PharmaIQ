@@ -5,6 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "@/components/ui/button";
 import { DBProvider } from "@/utils/data_interface";
 
+// TODO: setup "share" button in drug/brand page header
+// this will use deeplinks to navigate to appropriate page
 export default function Layout() {
   return (
     <DBProvider>
