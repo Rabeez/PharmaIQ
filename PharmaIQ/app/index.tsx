@@ -27,7 +27,7 @@ export default function Page() {
             <InputIcon as={SearchIcon} />
           </InputSlot>
           <InputField
-            placeholder="Search..."
+            placeholder="Search for Drug or Brand..."
             onChangeText={(text) => {
               runFuzzySearch(text);
             }}
