@@ -1,18 +1,7 @@
 import { BrandDetails } from "@/utils/data_interface";
-import { View, Text } from "react-native";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
-  AccordionTitleText,
-  AccordionContentText,
-  AccordionIcon,
-  AccordionContent,
-} from "@/components/ui/accordion";
-import { Divider } from "@/components/ui/divider";
-import { ChevronUpIcon, ChevronDownIcon } from "@/components/ui/icon";
+import { View, Text, ScrollView } from "react-native";
 import { useBrandDetails } from "@/utils/BrandDetailsContext";
+import { CustomList } from "@/components/SearchResultsTable";
 
 export default function Page() {
   const detail = useBrandDetails();
@@ -32,6 +21,12 @@ export default function Page() {
   );
 }
 
-function Content({ item }: { item: BrandDetails | null }) {
-  return <View>brands</View>;
+function Content({ item }: { item: BrandDetails }) {
+  return (
+    <ScrollView>
+      <CustomList
+        results={item.BRANDS.map((val) => ({ type: "brand", name: val }))}
+      />
+    </ScrollView>
+  );
 }
