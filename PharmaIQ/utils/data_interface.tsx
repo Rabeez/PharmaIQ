@@ -114,6 +114,57 @@ export async function fetchDrugDetails(
   return drug;
 }
 
+// TODO: make this dynamic so form is key and other stuff obj is value
+// will be better for accordion
+export interface BrandForms {
+  form: string;
+  packing: string;
+  weight: string;
+}
+export interface BrandDetails {
+  CODE: string;
+  NAME: string;
+  FORMS: BrandForms[];
+}
+function nestBrandDetails(code: any, forms: any[]): BrandDetails {
+  return {
+    CODE: code,
+    NAME: forms[0].NAME,
+    FORMS: forms.map((obj) => ({
+      form: obj.FORM,
+      packing: obj.PACKING,
+      weight: obj.MG,
+    })),
+  };
+}
+
+export async function fetchBrandDetails(
+  brandName: string,
+): Promise<BrandDetails | null> {
+  let query = "SELECT BID FROM BRAND WHERE BNAME = ?";
+  let flatResults = await executeQuery<any>(query, [brandName]);
+  if (!flatResults || flatResults.length === 0) {
+    console.log(`No brand data found for brand=${brandName}.`);
+    return null;
+  }
+
+  const brand_code = flatResults[0].BID;
+
+  query = "SELECT * FROM BRAND_DRUG WHERE BID = ?";
+  flatResults = await executeQuery<any>(query, [brand_code]);
+  if (!flatResults || flatResults.length === 0) {
+    console.log(
+      `No brand data found for brand=${brandName}, code=${brand_code}.`,
+    );
+    return null;
+  }
+
+  const brand = nestBrandDetails(brand_code, flatResults);
+  console.log("BRAND", brand);
+
+  return brand;
+}
+
 async function loadSearchData(setData: (data: SearchRecord[]) => void) {
   let query_drug = "SELECT NAME FROM DRUG";
   let query_brand = "SELECT BNAME FROM BRAND";

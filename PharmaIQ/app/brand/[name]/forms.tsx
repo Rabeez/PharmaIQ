@@ -1,5 +1,5 @@
-import { DrugDetails } from "@/utils/data_interface";
-import { useDrugDetails } from "@/utils/DrugDetailsContext";
+import { BrandDetails } from "@/utils/data_interface";
+import { useBrandDetails } from "@/utils/BrandDetailsContext";
 import { View, Text, ScrollView } from "react-native";
 import {
   Accordion,
@@ -15,13 +15,13 @@ import { Divider } from "@/components/ui/divider";
 import { ChevronUpIcon, ChevronDownIcon } from "@/components/ui/icon";
 
 export default function Page() {
-  const detail = useDrugDetails();
+  const detail = useBrandDetails();
   // TODO: show skeleton for whole page while deatail is null
   // via useQuery return values
-  if (!detail || !detail.INFO) {
+  if (!detail || !detail.FORMS) {
     return (
       <View className="flex flex-1 p-2">
-        <Text>MISSING DETAIL</Text>
+        <Text>MISSING FORMS</Text>
       </View>
     );
   }
@@ -32,50 +32,24 @@ export default function Page() {
   );
 }
 
-function Content({ item }: { item: DrugDetails }) {
+function Content({ item }: { item: BrandDetails }) {
   return (
     <ScrollView>
       <Accordion
         size="md"
         variant="unfilled"
-        type="single"
-        isCollapsible={false}
+        type="multiple"
+        isCollapsible={true}
         isDisabled={false}
-        defaultValue={["OVERVIEW"]}
         className="border border-outline-200"
       >
-        {Object.entries(item.INFO).map(([key, value], index, arr) => {
-          const isLast = index === arr.length - 1;
+        {Object.entries(item.FORMS).map(([key, value]) => {
           return (
             <>
-              <AccordionItem value={key}>
-                <AccordionHeader>
-                  <AccordionTrigger>
-                    {({ isExpanded }) => {
-                      return (
-                        <>
-                          <AccordionTitleText>{key}</AccordionTitleText>
-                          {isExpanded ? (
-                            <AccordionIcon
-                              as={ChevronUpIcon}
-                              className="ml-3"
-                            />
-                          ) : (
-                            <AccordionIcon
-                              as={ChevronDownIcon}
-                              className="ml-3"
-                            />
-                          )}
-                        </>
-                      );
-                    }}
-                  </AccordionTrigger>
-                </AccordionHeader>
-                <AccordionContent>
-                  <AccordionContentText>{value}</AccordionContentText>
-                </AccordionContent>
-              </AccordionItem>
-              {!isLast && <Divider className="bg-slate-500" />}
+              <Text>{key}</Text>
+              {Object.entries(value).map(([_, val]) => (
+                <Text>{val}</Text>
+              ))}
             </>
           );
         })}
