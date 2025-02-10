@@ -116,31 +116,27 @@ export async function fetchDrugDetails(
 
 // TODO: make this dynamic so form is key and other stuff obj is value
 // will be better for accordion
-export interface BrandForms {
-  form: string;
+export interface BrandForm {
   packing: string;
   weight: string;
 }
 export interface BrandDetails {
   CODE: string;
   NAME: string;
-  FORMS: BrandForms[];
+  FORMS: Record<string, BrandForm[]>;
   COMPOSITION: string[];
   BRANDS: any;
 }
 function nestBrandDetails(
   code: any,
-  forms: any[],
+  name: string,
+  forms: Record<string, BrandForm[]>,
   comps: string[],
 ): BrandDetails {
   return {
     CODE: code,
-    NAME: forms[0].NAME,
-    FORMS: forms.map((obj) => ({
-      form: obj.FORM,
-      packing: obj.PACKING,
-      weight: obj.MG,
-    })),
+    NAME: name,
+    FORMS: forms,
     COMPOSITION: comps,
     BRANDS: null,
   };
@@ -166,6 +162,16 @@ export async function fetchBrandDetails(
     );
     return null;
   }
+  console.log("fetching COMPS", flatResults_bd);
+
+  const forms: Record<string, BrandForm[]> = {};
+  flatResults_bd.forEach((item) => {
+    if (!forms[item.FORM]) {
+      forms[item.FORM] = [{ packing: item.PACKING, weight: item.MG }];
+    } else {
+      forms[item.FORM].push({ packing: item.PACKING, weight: item.MG });
+    }
+  });
 
   let codes = flatResults_bd.map((obj) => obj.DID);
   codes = Array.from(new Set(codes));
@@ -180,7 +186,12 @@ export async function fetchBrandDetails(
   }
   const comps = flatResults_comps.map((row) => row.NAME);
 
-  const brand = nestBrandDetails(brand_code, flatResults_bd, comps);
+  const brand = nestBrandDetails(
+    brand_code,
+    flatResults_bd[0].NAME,
+    forms,
+    comps,
+  );
   console.log("BRAND", brand);
 
   return brand;

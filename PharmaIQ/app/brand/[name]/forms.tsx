@@ -13,6 +13,15 @@ import {
 } from "@/components/ui/accordion";
 import { Divider } from "@/components/ui/divider";
 import { ChevronUpIcon, ChevronDownIcon } from "@/components/ui/icon";
+import { VStack } from "@/components/ui/vstack";
+import {
+  Table,
+  TableBody,
+  TableData,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export default function Page() {
   const detail = useBrandDetails();
@@ -43,13 +52,63 @@ function Content({ item }: { item: BrandDetails }) {
         isDisabled={false}
         className="border border-outline-200"
       >
-        {Object.entries(item.FORMS).map(([key, value]) => {
+        {Object.entries(item.FORMS).map(([key, value], index, arr) => {
+          const isLast = index === arr.length - 1;
           return (
             <>
-              <Text>{key}</Text>
-              {Object.entries(value).map(([_, val]) => (
-                <Text>{val}</Text>
-              ))}
+              <AccordionItem value={key}>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {({ isExpanded }) => {
+                      return (
+                        <>
+                          <AccordionTitleText>{key}</AccordionTitleText>
+                          {isExpanded ? (
+                            <AccordionIcon
+                              as={ChevronUpIcon}
+                              className="ml-3"
+                            />
+                          ) : (
+                            <AccordionIcon
+                              as={ChevronDownIcon}
+                              className="ml-3"
+                            />
+                          )}
+                        </>
+                      );
+                    }}
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionContent>
+                  <AccordionContentText>
+                    <VStack>
+                      {value === null || value.length === 0 ? (
+                        <Text>No relevant information available.</Text>
+                      ) : (
+                        <Table className="w-full">
+                          <TableHeader>
+                            <TableRow>
+                              {Object.keys(value[0]).map((col) => (
+                                <TableHead>{col}</TableHead>
+                              ))}
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {value.map((val) => (
+                              <TableRow>
+                                {Object.values(val).map((val) => (
+                                  <TableData>{val}</TableData>
+                                ))}
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      )}
+                    </VStack>
+                  </AccordionContentText>
+                </AccordionContent>
+              </AccordionItem>
+              {!isLast && <Divider className="bg-slate-500" />}
             </>
           );
         })}

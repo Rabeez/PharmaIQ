@@ -22,7 +22,6 @@ export default function Page() {
 }
 
 function Content({ item }: { item: BrandDetails }) {
-  console.log("in render", item.COMPOSITION);
   return (
     <ScrollView>
       <CustomList
