@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function DrugTabsLayout() {
   const { name } = useLocalSearchParams() as { name: string };
+  // TODO: Show company name as "subtitle"
   const [brandName, setBrandName] = useState<string>("");
   const [detail, setDetail] = useState<BrandDetails | null>(null);
   const navigation = useNavigation();
