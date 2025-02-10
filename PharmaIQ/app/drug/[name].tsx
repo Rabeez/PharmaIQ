@@ -1,6 +1,6 @@
 import { VStack } from "@/components/ui/vstack";
 import { DrugDetails, fetchDrugDetails } from "@/utils/data_interface";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 
@@ -26,6 +26,7 @@ export default function Page() {
   // TODO: show skeleton for whole page while deatail is null
   return (
     <View className="flex flex-1 p-2">
+      <Stack.Screen options={{ headerTitle: name }} />
       <Content
         item={
           detail ?? {

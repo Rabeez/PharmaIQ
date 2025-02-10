@@ -1,5 +1,5 @@
 import "@/global.css";
-import { Link, Slot } from "expo-router";
+import { Link, Slot, Stack } from "expo-router";
 import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "@/components/ui/button";
@@ -11,9 +11,10 @@ export default function Layout() {
   return (
     <DBProvider>
       <SafeAreaView className="flex flex-1">
-        <Header />
-        <Slot />
-        <Footer />
+        <Stack></Stack>
+        {/* <Header /> */}
+        {/* <Slot /> */}
+        {/* <Footer /> */}
       </SafeAreaView>
     </DBProvider>
   );

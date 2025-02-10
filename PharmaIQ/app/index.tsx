@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, Stack } from "expo-router";
 import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { SearchIcon } from "@/components/ui/icon";
@@ -20,7 +20,8 @@ export default function Page() {
   };
 
   return (
-    <View className="flex flex-col items-center gap-2 px-4 text-center md:px-6 md:py-24 lg:py-32 xl:py-48">
+    <View className="flex flex-col items-center gap-2 p-4 text-center md:px-6 md:py-24 lg:py-32 xl:py-48">
+      <Stack.Screen options={{ headerTitle: "Home" }} />
       <View className="w-full">
         <Input>
           <InputSlot className="pl-3">
