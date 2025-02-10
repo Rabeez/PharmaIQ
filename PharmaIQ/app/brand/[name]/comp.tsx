@@ -7,7 +7,7 @@ export default function Page() {
   const detail = useBrandDetails();
   // TODO: show skeleton for whole page while deatail is null
   // via useQuery return values
-  if (!detail || !detail.COMPOSITION) {
+  if (!detail || !detail.COMPOSITION || detail.COMPOSITION.length === 0) {
     return (
       <View className="flex flex-1 p-2">
         <Text>MISSING composition</Text>

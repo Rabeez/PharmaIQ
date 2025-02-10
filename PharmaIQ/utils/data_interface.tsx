@@ -31,7 +31,7 @@ export interface DrugDetails {
     PAEDIATRIC: DrugDosage | null;
     NEONATAL: DrugDosage | null;
   };
-  BRANDS: any;
+  BRANDS: string[];
 }
 
 function nestDrugDosage(dosage: any): DrugDosage | null {
@@ -70,7 +70,7 @@ function nestDrugDetails(
       PAEDIATRIC: nestDrugDosage(dosage.PAEDIATRIC),
       NEONATAL: nestDrugDosage(dosage.NEONATAL),
     },
-    BRANDS: null,
+    BRANDS: [],
   };
 }
 
@@ -125,7 +125,7 @@ export interface BrandDetails {
   NAME: string;
   FORMS: Record<string, BrandForm[]>;
   COMPOSITION: string[];
-  BRANDS: any;
+  BRANDS: string[];
 }
 function nestBrandDetails(
   code: any,
@@ -138,7 +138,7 @@ function nestBrandDetails(
     NAME: name,
     FORMS: forms,
     COMPOSITION: comps,
-    BRANDS: null,
+    BRANDS: [],
   };
 }
 
