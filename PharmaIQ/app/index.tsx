@@ -35,7 +35,9 @@ export default function Page() {
       </View>
 
       <View className="w-full">
-        {results.length > 0 && <CustomList results={results} />}
+        {results.length > 0 && (
+          <CustomList results={results} title="Search Results" />
+        )}
       </View>
     </View>
   );

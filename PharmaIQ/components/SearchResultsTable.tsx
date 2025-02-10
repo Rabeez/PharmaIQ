@@ -6,7 +6,10 @@ import { Heading } from "@/components/ui/heading";
 import { SearchRecord } from "@/utils/search";
 
 const CustomDivider = () => <Divider className="my-0.5" />;
-const SearchHeader = () => <Heading className="my-1">Search results</Heading>;
+
+function SearchHeader({ title }: { title: string }) {
+  return <Heading className="my-1">{title}</Heading>;
+}
 
 function CustomListItem({ item }: { item: SearchRecord }) {
   // TODO: this function should switch on type and return relevant component
@@ -18,7 +21,13 @@ function CustomListItem({ item }: { item: SearchRecord }) {
   );
 }
 
-export function CustomList({ results }: { results: SearchRecord[] }) {
+export function CustomList({
+  results,
+  title,
+}: {
+  results: SearchRecord[];
+  title?: string;
+}) {
   // TODO: "scroll-to-top" button visible automatically for long lists etc
   // https://youtu.be/pZgjlh5ezd4?si=pypM7_5kkBwy6Q2Z&t=683
   return (
@@ -41,7 +50,9 @@ export function CustomList({ results }: { results: SearchRecord[] }) {
         </Link>
       )}
       ItemSeparatorComponent={CustomDivider}
-      ListHeaderComponent={SearchHeader}
+      ListHeaderComponent={
+        title ? () => <SearchHeader title={title} /> : undefined
+      }
     />
   );
 }
