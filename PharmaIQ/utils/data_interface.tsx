@@ -185,6 +185,7 @@ export async function fetchBrandDetails(
     );
     return null;
   }
+  const brand_name = flatResults_bd[0].NAME;
 
   const forms: Record<string, BrandForm[]> = {};
   flatResults_bd.forEach((item) => {
@@ -197,7 +198,7 @@ export async function fetchBrandDetails(
 
   let codes = flatResults_bd.map((obj) => obj.DID);
   codes = Array.from(new Set(codes));
-  const placeholders = codes.map(() => "?").join(",");
+  let placeholders = codes.map(() => "?").join(",");
   query = `SELECT DISTINCT name FROM drug WHERE code IN (${placeholders});`;
   let flatResults_comps = await executeQuery<any>(query, codes);
   if (!flatResults_comps || flatResults_comps.length === 0) {
@@ -208,15 +209,47 @@ export async function fetchBrandDetails(
   }
   const comps = flatResults_comps.map((row) => row.NAME);
 
-  const brands = ["asd"];
+  let brands: string[] = [];
+  query = `
+  WITH brand_lists AS (
+    SELECT BID, GROUP_CONCAT(DID, ',') AS drug_list
+    FROM (
+      SELECT DISTINCT BID, DID
+      FROM brand_drug
+      ORDER BY BID, DID
+    )
+    GROUP BY BID
+  ),
+  given_brand_list AS (
+    SELECT drug_list
+    FROM brand_lists
+    WHERE BID = ?
+  )
+  SELECT BID
+  FROM brand_lists
+  WHERE BID <> ? AND drug_list = (SELECT drug_list FROM given_brand_list);
+`;
 
-  const brand = nestBrandDetails(
+  const flatResults_rb = await executeQuery<any>(query, [
     brand_code,
-    flatResults_bd[0].NAME,
-    forms,
-    comps,
-    brands,
-  );
+    brand_code,
+  ]);
+  if (!flatResults_rb || flatResults_rb.length === 0) {
+    console.log(`No alternate brands found for brand=${brand_name}.`);
+  } else {
+    codes = flatResults_rb.map((row) => row.BID);
+    codes = Array.from(new Set(codes));
+    placeholders = codes.map(() => "?").join(",");
+    query = `SELECT DISTINCT bname FROM brand WHERE bid IN (${placeholders}) ORDER BY bname;`;
+    const flatResults_brands = await executeQuery<any>(query, codes);
+    if (!flatResults_brands || flatResults_brands.length === 0) {
+      console.log(`No brand names found for alternate brands=${codes}.`);
+    } else {
+      brands = flatResults_brands.map((row) => row.BNAME);
+    }
+  }
+
+  const brand = nestBrandDetails(brand_code, brand_name, forms, comps, brands);
   console.log("BRAND", brand);
 
   return brand;
