@@ -12,10 +12,13 @@ function SearchHeader({ title }: { title: string }) {
 }
 
 function CustomListItem({ item }: { item: SearchRecord }) {
-  // TODO: this function should switch on type and return relevant component
   return (
     <Text>
-      <Text className="font-bold">{item.type}</Text>
+      {item.type === "drug" ? (
+        <Text className="font-bold text-green-300">{item.type}</Text>
+      ) : (
+        <Text className="font-bold text-orange-300">{item.type}</Text>
+      )}
       {item.name}
     </Text>
   );
