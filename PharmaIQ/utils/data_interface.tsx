@@ -136,8 +136,6 @@ export async function fetchDrugDetails(
   return drug;
 }
 
-// TODO: make this dynamic so form is key and other stuff obj is value
-// will be better for accordion
 export interface BrandForm {
   packing: string;
   weight: string;
