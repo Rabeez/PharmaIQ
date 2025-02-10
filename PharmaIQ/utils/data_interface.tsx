@@ -48,6 +48,7 @@ function nestDrugDosage(dosage: any): DrugDosage | null {
 function nestDrugDetails(
   info: any,
   dosage: { ADULT: any; PAEDIATRIC: any; NEONATAL: any },
+  brands: string[],
 ): DrugDetails {
   const { CODE, NAME, ...rest } = info;
   return {
@@ -70,7 +71,7 @@ function nestDrugDetails(
       PAEDIATRIC: nestDrugDosage(dosage.PAEDIATRIC),
       NEONATAL: nestDrugDosage(dosage.NEONATAL),
     },
-    BRANDS: [],
+    BRANDS: brands,
   };
 }
 
@@ -105,11 +106,32 @@ export async function fetchDrugDetails(
     flatResults_d_neonat = [null];
   }
 
-  const drug = nestDrugDetails(flatResults_info[0], {
-    ADULT: flatResults_d_adult[0],
-    PAEDIATRIC: flatResults_d_paed[0],
-    NEONATAL: flatResults_d_neonat[0],
-  });
+  let brands: string[] = [];
+  query = "SELECT BID FROM brand_drug WHERE DID = ?";
+  let flatResults_rb = await executeQuery<any>(query, [drug_code]);
+  if (!flatResults_rb || flatResults_rb.length === 0) {
+    console.log(`No brand IDs found for drug=${drug_code}.`);
+  }
+  let codes = flatResults_rb.map((row) => row.BID);
+  codes = Array.from(new Set(codes));
+  const placeholders = codes.map(() => "?").join(",");
+  query = `SELECT DISTINCT bname FROM brand WHERE bid IN (${placeholders});`;
+  const flatResults_brands = await executeQuery<any>(query, codes);
+  if (!flatResults_brands || flatResults_brands.length === 0) {
+    console.log(`No brand names found for brands=${codes}.`);
+  } else {
+    brands = flatResults_brands.map((row) => row.BNAME);
+  }
+
+  const drug = nestDrugDetails(
+    flatResults_info[0],
+    {
+      ADULT: flatResults_d_adult[0],
+      PAEDIATRIC: flatResults_d_paed[0],
+      NEONATAL: flatResults_d_neonat[0],
+    },
+    brands,
+  );
 
   return drug;
 }
@@ -132,13 +154,14 @@ function nestBrandDetails(
   name: string,
   forms: Record<string, BrandForm[]>,
   comps: string[],
+  brands: string[],
 ): BrandDetails {
   return {
     CODE: code,
     NAME: name,
     FORMS: forms,
     COMPOSITION: comps,
-    BRANDS: [],
+    BRANDS: brands,
   };
 }
 
@@ -185,11 +208,14 @@ export async function fetchBrandDetails(
   }
   const comps = flatResults_comps.map((row) => row.NAME);
 
+  const brands = ["asd"];
+
   const brand = nestBrandDetails(
     brand_code,
     flatResults_bd[0].NAME,
     forms,
     comps,
+    brands,
   );
   console.log("BRAND", brand);
 
