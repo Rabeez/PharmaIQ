@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { SearchIcon } from "@/components/ui/icon";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { fuzzySearch } from "@/utils/search";
-import { SearchResultsTable } from "@/components/SearchResultsTable";
+import { CustomList } from "@/components/SearchResultsTable";
 import { useDB } from "@/utils/data_interface";
 
 export default function Page() {
@@ -36,7 +36,7 @@ export default function Page() {
       </View>
 
       <View className="w-full">
-        {results.length > 0 && <SearchResultsTable results={results} />}
+        {results.length > 0 && <CustomList results={results} />}
       </View>
     </View>
   );

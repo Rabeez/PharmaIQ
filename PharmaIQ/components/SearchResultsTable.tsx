@@ -7,7 +7,13 @@ import { Heading } from "@/components/ui/heading";
 const CustomDivider = () => <Divider className="my-0.5" />;
 const SearchHeader = () => <Heading className="my-1">Search results</Heading>;
 
-export function SearchResultsTable({ results }: { results: string[] }) {
+type ListItemContents = string;
+
+function CustomListItem({ item }: { item: ListItemContents }) {
+  return <Text>{item}</Text>;
+}
+
+export function CustomList({ results }: { results: ListItemContents[] }) {
   // TODO: "scroll-to-top" button visible automatically for long lists etc
   // https://youtu.be/pZgjlh5ezd4?si=pypM7_5kkBwy6Q2Z&t=683
   return (
@@ -21,7 +27,7 @@ export function SearchResultsTable({ results }: { results: string[] }) {
           asChild
         >
           <Pressable>
-            <Text>{item}</Text>
+            <CustomListItem item={item} />
           </Pressable>
         </Link>
       )}
