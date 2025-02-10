@@ -1,13 +1,5 @@
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableData,
-} from "@/components/ui/table";
 import { Link } from "expo-router";
-import { View, Text, StatusBar, Pressable } from "react-native";
+import { Text, Pressable } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Divider } from "@/components/ui/divider";
 import { Heading } from "@/components/ui/heading";
@@ -25,7 +17,7 @@ export function SearchResultsTable({ results }: { results: string[] }) {
         <Link
           className="w-full"
           key={index}
-          href={`/drug/${encodeURIComponent(item)}`}
+          href={`/drug/${encodeURIComponent(item)}/info`}
           asChild
         >
           <Pressable>

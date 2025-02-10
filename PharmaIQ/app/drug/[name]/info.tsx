@@ -1,36 +1,18 @@
 import { VStack } from "@/components/ui/vstack";
-import { DrugDetails, fetchDrugDetails } from "@/utils/data_interface";
-import { Stack, useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
+import { DrugDetails } from "@/utils/data_interface";
+import { useDrugDetails } from "@/utils/DrugDetailsContext";
 import { View, Text } from "react-native";
 
 export default function Page() {
-  const { name } = useLocalSearchParams() as { name: string };
-  const [detail, setDetail] = useState<DrugDetails | null>(null);
-
-  // TODO: try useQuery for caching with key=name
-  useEffect(() => {
-    async function fetchDetail() {
-      console.log("Fetching details for:", name);
-      const fetchedDetail = await fetchDrugDetails(name);
-      console.log("Fetched detail:", fetchedDetail);
-      setDetail(fetchedDetail);
-    }
-    fetchDetail();
-  }, [name]);
-
-  useEffect(() => {
-    console.log("Current detail state:", detail);
-  }, [detail]);
-
+  const detail = useDrugDetails();
   // TODO: show skeleton for whole page while deatail is null
   return (
     <View className="flex flex-1 p-2">
-      <Stack.Screen options={{ headerTitle: name }} />
+      {/* <Tabs.Screen name="(tabs)" options={{ headerShown: false }} /> */}
       <Content
         item={
           detail ?? {
-            NAME: name,
+            NAME: "<UNK>",
             OVERVIEW: "Loading...",
             CHARACTERSTICS: "Loading...",
           }

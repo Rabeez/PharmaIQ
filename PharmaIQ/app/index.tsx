@@ -1,8 +1,7 @@
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { SearchIcon } from "@/components/ui/icon";
-import { Button, ButtonText } from "@/components/ui/button";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { fuzzySearch } from "@/utils/search";
 import { SearchResultsTable } from "@/components/SearchResultsTable";
