@@ -1,9 +1,11 @@
 import { Link } from "expo-router";
-import { Text, Pressable } from "react-native";
+import { Text, Pressable, View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Divider } from "@/components/ui/divider";
 import { Heading } from "@/components/ui/heading";
 import { SearchRecord } from "@/utils/search";
+import { Badge, BadgeText } from "./ui/badge";
+import { HStack } from "./ui/hstack";
 
 const CustomDivider = () => <Divider className="my-0.5" />;
 
@@ -12,16 +14,19 @@ function SearchHeader({ title }: { title: string }) {
 }
 
 function CustomListItem({ item }: { item: SearchRecord }) {
-  // TODO: show icon based on type
   return (
-    <Text>
+    <HStack className="h-8 w-full place-items-center align-middle">
       {item.type === "drug" ? (
-        <Text className="font-bold text-green-300">{item.type}</Text>
+        <Badge size="sm" variant="solid" className="bg-teal-300">
+          <BadgeText>{item.type}</BadgeText>
+        </Badge>
       ) : (
-        <Text className="font-bold text-orange-300">{item.type}</Text>
+        <Badge size="sm" variant="solid" className="bg-orange-300">
+          <BadgeText>{item.type}</BadgeText>
+        </Badge>
       )}
-      {item.name}
-    </Text>
+      <Text>{item.name}</Text>
+    </HStack>
   );
 }
 
