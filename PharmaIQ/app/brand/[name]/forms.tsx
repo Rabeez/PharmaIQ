@@ -28,6 +28,7 @@ export default function Page() {
   // TODO: show skeleton for whole page while deatail is null
   // via useQuery return values
   if (!detail || !detail.FORMS) {
+    console.log("hare", detail);
     return (
       <View className="flex flex-1 p-2">
         <Text>MISSING FORMS</Text>

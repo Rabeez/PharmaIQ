@@ -162,7 +162,6 @@ export async function fetchBrandDetails(
     );
     return null;
   }
-  console.log("fetching COMPS", flatResults_bd);
 
   const forms: Record<string, BrandForm[]> = {};
   flatResults_bd.forEach((item) => {
@@ -177,12 +176,12 @@ export async function fetchBrandDetails(
   codes = Array.from(new Set(codes));
   const placeholders = codes.map(() => "?").join(",");
   query = `SELECT DISTINCT name FROM drug WHERE code IN (${placeholders});`;
-  const flatResults_comps = await executeQuery<any>(query, [brand_code]);
+  let flatResults_comps = await executeQuery<any>(query, codes);
   if (!flatResults_comps || flatResults_comps.length === 0) {
     console.log(
       `No component data found for brand=${brandName}, drug_codes=${codes}.`,
     );
-    return null;
+    flatResults_comps = [];
   }
   const comps = flatResults_comps.map((row) => row.NAME);
 
