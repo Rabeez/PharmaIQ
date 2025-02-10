@@ -21,6 +21,7 @@ export default function DrugTabsLayout() {
   }, [name]);
 
   useEffect(() => {
+    // TODO: title isn't overwritten when navigating from secondary lists
     navigation.setOptions({ headerTitle: drugName });
   }, [drugName]);
 
