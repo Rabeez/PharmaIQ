@@ -14,14 +14,30 @@ export interface DrugInfo {
   WARNINING: string;
   STORAGE: string;
 }
+export interface DrugDosage {
+  DOSE: string;
+  SINGLE: string;
+  FREQ: string;
+  ROUTE: string;
+  INSTRUCTION: string;
+}
 export interface DrugDetails {
   CODE: string;
   NAME: string;
   INFO: DrugInfo;
+  DOSAGE: {
+    ADULT: DrugDosage;
+    PAEDIATRIC: DrugDosage;
+    NEONATAL: DrugDosage;
+  };
+  BRANDS: any;
 }
 
-function nestDrugDetails(row: any): DrugDetails {
-  const { CODE, NAME, ...rest } = row;
+function nestDrugDetails(
+  info: any,
+  dosage: { ADULT: any; PAEDIATRIC: any; NEONATAL: any },
+): DrugDetails {
+  const { CODE, NAME, ...rest } = info;
   return {
     CODE,
     NAME,
@@ -37,21 +53,51 @@ function nestDrugDetails(row: any): DrugDetails {
       WARNINING: rest.WARNINING,
       STORAGE: rest.STORAGE,
     },
+    DOSAGE: {
+      ADULT: dosage.ADULT,
+      PAEDIATRIC: dosage.PAEDIATRIC,
+      NEONATAL: dosage.NEONATAL,
+    },
+    BRANDS: null,
   };
 }
 
 export async function fetchDrugDetails(
   drugName: string,
 ): Promise<DrugDetails | null> {
-  const query = "SELECT * FROM drug WHERE name = ?";
-  const flatResults = await executeQuery<any>(query, [drugName]);
-
-  if (!flatResults || flatResults.length === 0) {
-    console.log(`No results found for drug=${drugName}.`);
+  let query = "SELECT * FROM drug WHERE name = ?";
+  let flatResults_info = await executeQuery<any>(query, [drugName]);
+  if (!flatResults_info || flatResults_info.length === 0) {
+    console.log(`No info results found for drug=${drugName}.`);
     return null;
   }
 
-  const drug = nestDrugDetails(flatResults[0]);
+  const drug_code = flatResults_info[0].CODE;
+
+  query = "SELECT * FROM adult WHERE code = ?";
+  const flatResults_d_adult = await executeQuery<any>(query, [drug_code]);
+  if (!flatResults_d_adult || flatResults_d_adult.length === 0) {
+    console.log(`No dosage-adult results found for drug=${drugName}.`);
+    return null;
+  }
+  query = "SELECT * FROM adult WHERE code = ?";
+  const flatResults_d_paed = await executeQuery<any>(query, [drug_code]);
+  if (!flatResults_d_paed || flatResults_d_paed.length === 0) {
+    console.log(`No dosage-paed results found for drug=${drugName}.`);
+    return null;
+  }
+  query = "SELECT * FROM adult WHERE code = ?";
+  const flatResults_d_neonat = await executeQuery<any>(query, [drug_code]);
+  if (!flatResults_d_neonat || flatResults_d_neonat.length === 0) {
+    console.log(`No dosage-neonat results found for drug=${drugName}.`);
+    return null;
+  }
+
+  const drug = nestDrugDetails(flatResults_info[0], {
+    ADULT: flatResults_d_adult[0],
+    PAEDIATRIC: flatResults_d_paed[0],
+    NEONATAL: flatResults_d_neonat[0],
+  });
 
   return drug;
 }

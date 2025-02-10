@@ -18,7 +18,7 @@ export default function Page() {
   const detail = useDrugDetails();
   // TODO: show skeleton for whole page while deatail is null
   // via useQuery return values
-  if (!detail) {
+  if (!detail || !detail.INFO) {
     return (
       <View className="flex flex-1 p-2">
         <Text>MISSING DETAIL</Text>

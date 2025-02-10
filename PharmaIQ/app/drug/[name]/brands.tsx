@@ -1,6 +1,6 @@
 import { DrugDetails } from "@/utils/data_interface";
 import { useDrugDetails } from "@/utils/DrugDetailsContext";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import {
   Accordion,
   AccordionItem,
@@ -18,17 +18,16 @@ export default function Page() {
   const detail = useDrugDetails();
   // TODO: show skeleton for whole page while deatail is null
   // via useQuery return values
+  if (!detail || !detail.BRANDS) {
+    return (
+      <View className="flex flex-1 p-2">
+        <Text>MISSING brands</Text>
+      </View>
+    );
+  }
   return (
     <View className="flex flex-1 p-2">
-      <Content
-        item={
-          detail ?? {
-            NAME: "<UNK>",
-            OVERVIEW: "Loading...",
-            CHARACTERSTICS: "Loading...",
-          }
-        }
-      />
+      <Content item={detail} />
     </View>
   );
 }
