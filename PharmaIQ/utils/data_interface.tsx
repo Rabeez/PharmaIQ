@@ -44,6 +44,7 @@ async function loadSearchData(setData: (data: string[]) => void) {
 }
 
 export default function useDatabase(): string[] {
+  // TODO: useQuery spot
   const [data, setData] = useState<string[]>([]);
 
   useEffect(() => {

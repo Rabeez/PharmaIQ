@@ -9,7 +9,7 @@ export default function DrugTabsLayout() {
   const [detail, setDetail] = useState<DrugDetails | null>(null);
   const navigation = useNavigation();
 
-  // TODO: try useQuery for caching with key=name
+  // TODO: useQuery spot
   useEffect(() => {
     async function fetchDetail() {
       console.log("Fetching details for:", name);
