@@ -1,7 +1,18 @@
-import { VStack } from "@/components/ui/vstack";
 import { DrugDetails } from "@/utils/data_interface";
 import { useDrugDetails } from "@/utils/DrugDetailsContext";
 import { View, Text } from "react-native";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionTrigger,
+  AccordionTitleText,
+  AccordionContentText,
+  AccordionIcon,
+  AccordionContent,
+} from "@/components/ui/accordion";
+import { Divider } from "@/components/ui/divider";
+import { ChevronUpIcon, ChevronDownIcon } from "@/components/ui/icon";
 
 export default function Page() {
   const detail = useDrugDetails();
@@ -32,14 +43,60 @@ function Content({ item }: { item: DrugDetails | null }) {
   }
   // TODO: think how to show any missing or N/A values for all fields
   return (
-    <View className="text-center">
-      <VStack space="md" reversed={false}>
-        <Text className="font-bold">{item?.NAME || "No Name"}</Text>
-        <Text className="font-thin">{item?.OVERVIEW || "No Overview"}</Text>
-        <Text className="font-thin">
-          {item?.CHARACTERSTICS || "No Characteristics"}
-        </Text>
-      </VStack>
+    <View>
+      <Accordion
+        size="md"
+        variant="unfilled"
+        type="single"
+        isCollapsible={false}
+        isDisabled={false}
+        defaultValue={["a"]}
+        className="border border-outline-200"
+      >
+        <AccordionItem value="a">
+          <AccordionHeader>
+            <AccordionTrigger>
+              {({ isExpanded }) => {
+                return (
+                  <>
+                    <AccordionTitleText>Overview</AccordionTitleText>
+                    {isExpanded ? (
+                      <AccordionIcon as={ChevronUpIcon} className="ml-3" />
+                    ) : (
+                      <AccordionIcon as={ChevronDownIcon} className="ml-3" />
+                    )}
+                  </>
+                );
+              }}
+            </AccordionTrigger>
+          </AccordionHeader>
+          <AccordionContent>
+            <AccordionContentText>{item?.OVERVIEW}</AccordionContentText>
+          </AccordionContent>
+        </AccordionItem>
+        <Divider className="bg-slate-500" />
+        <AccordionItem value="b">
+          <AccordionHeader>
+            <AccordionTrigger>
+              {({ isExpanded }) => {
+                return (
+                  <>
+                    <AccordionTitleText>Characteristics</AccordionTitleText>
+                    {isExpanded ? (
+                      <AccordionIcon as={ChevronUpIcon} className="ml-3" />
+                    ) : (
+                      <AccordionIcon as={ChevronDownIcon} className="ml-3" />
+                    )}
+                  </>
+                );
+              }}
+            </AccordionTrigger>
+          </AccordionHeader>
+          <AccordionContent>
+            <AccordionContentText>{item?.CHARACTERSTICS}</AccordionContentText>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </View>
   );
 }
