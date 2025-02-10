@@ -136,6 +136,10 @@ export async function fetchDrugDetails(
   return drug;
 }
 
+// TODO: replace key of FORMS from string to {form: original_form, category: mapped_category}
+// use form as it's used currently for accordion titles etc
+// use category for icons (can crete category_name->icon_name mapping function)
+//     icon will be displayed in form accordian headers AND in brand ListItem
 export interface BrandForm {
   packing: string;
   weight: string;
