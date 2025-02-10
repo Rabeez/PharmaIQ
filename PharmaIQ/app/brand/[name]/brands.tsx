@@ -1,5 +1,4 @@
-import { DrugDetails } from "@/utils/data_interface";
-import { useDrugDetails } from "@/utils/DrugDetailsContext";
+import { BrandDetails } from "@/utils/data_interface";
 import { View, Text } from "react-native";
 import {
   Accordion,
@@ -13,9 +12,10 @@ import {
 } from "@/components/ui/accordion";
 import { Divider } from "@/components/ui/divider";
 import { ChevronUpIcon, ChevronDownIcon } from "@/components/ui/icon";
+import { useBrandDetails } from "@/utils/BrandDetailsContext";
 
 export default function Page() {
-  const detail = useDrugDetails();
+  const detail = useBrandDetails();
   // TODO: show skeleton for whole page while deatail is null
   // via useQuery return values
   if (!detail || !detail.BRANDS) {
@@ -32,6 +32,6 @@ export default function Page() {
   );
 }
 
-function Content({ item }: { item: DrugDetails | null }) {
+function Content({ item }: { item: BrandDetails | null }) {
   return <View>brands</View>;
 }

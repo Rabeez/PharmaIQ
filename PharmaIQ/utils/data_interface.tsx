@@ -125,8 +125,14 @@ export interface BrandDetails {
   CODE: string;
   NAME: string;
   FORMS: BrandForms[];
+  COMPOSITION: string[];
+  BRANDS: any;
 }
-function nestBrandDetails(code: any, forms: any[]): BrandDetails {
+function nestBrandDetails(
+  code: any,
+  forms: any[],
+  comps: string[],
+): BrandDetails {
   return {
     CODE: code,
     NAME: forms[0].NAME,
@@ -135,6 +141,8 @@ function nestBrandDetails(code: any, forms: any[]): BrandDetails {
       packing: obj.PACKING,
       weight: obj.MG,
     })),
+    COMPOSITION: comps,
+    BRANDS: null,
   };
 }
 
@@ -151,15 +159,28 @@ export async function fetchBrandDetails(
   const brand_code = flatResults[0].BID;
 
   query = "SELECT * FROM BRAND_DRUG WHERE BID = ?";
-  flatResults = await executeQuery<any>(query, [brand_code]);
-  if (!flatResults || flatResults.length === 0) {
+  const flatResults_bd = await executeQuery<any>(query, [brand_code]);
+  if (!flatResults_bd || flatResults_bd.length === 0) {
     console.log(
       `No brand data found for brand=${brandName}, code=${brand_code}.`,
     );
     return null;
   }
 
-  const brand = nestBrandDetails(brand_code, flatResults);
+  let codes = flatResults_bd.map((obj) => obj.DID);
+  codes = Array.from(new Set(codes));
+  const placeholders = codes.map(() => "?").join(",");
+  query = `SELECT DISTINCT name FROM drug WHERE code IN (${placeholders});`;
+  const flatResults_comps = await executeQuery<any>(query, [brand_code]);
+  if (!flatResults_comps || flatResults_comps.length === 0) {
+    console.log(
+      `No component data found for brand=${brandName}, drug_codes=${codes}.`,
+    );
+    return null;
+  }
+  const comps = flatResults_comps.map((row) => row.NAME);
+
+  const brand = nestBrandDetails(brand_code, flatResults_bd, comps);
   console.log("BRAND", brand);
 
   return brand;
