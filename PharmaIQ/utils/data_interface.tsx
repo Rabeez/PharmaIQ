@@ -115,7 +115,7 @@ export async function fetchDrugDetails(
   let codes = flatResults_rb.map((row) => row.BID);
   codes = Array.from(new Set(codes));
   const placeholders = codes.map(() => "?").join(",");
-  query = `SELECT DISTINCT bname FROM brand WHERE bid IN (${placeholders});`;
+  query = `SELECT DISTINCT bname FROM brand WHERE bid IN (${placeholders}) ORDER BY bname;`;
   const flatResults_brands = await executeQuery<any>(query, codes);
   if (!flatResults_brands || flatResults_brands.length === 0) {
     console.log(`No brand names found for brands=${codes}.`);
@@ -199,7 +199,7 @@ export async function fetchBrandDetails(
   let codes = flatResults_bd.map((obj) => obj.DID);
   codes = Array.from(new Set(codes));
   let placeholders = codes.map(() => "?").join(",");
-  query = `SELECT DISTINCT name FROM drug WHERE code IN (${placeholders});`;
+  query = `SELECT DISTINCT name FROM drug WHERE code IN (${placeholders}) ORDER BY name;`;
   let flatResults_comps = await executeQuery<any>(query, codes);
   if (!flatResults_comps || flatResults_comps.length === 0) {
     console.log(
