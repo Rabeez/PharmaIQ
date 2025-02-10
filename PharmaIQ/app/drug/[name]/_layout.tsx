@@ -14,7 +14,6 @@ export default function DrugTabsLayout() {
     async function fetchDetail() {
       console.log("Fetching details for:", name);
       const fetchedDetail = await fetchDrugDetails(name);
-      console.log("Fetched detail:", fetchedDetail);
       setDetail(fetchedDetail);
     }
     setDrugName(decodeURIComponent(name));

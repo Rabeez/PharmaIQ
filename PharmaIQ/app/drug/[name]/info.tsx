@@ -1,6 +1,6 @@
 import { DrugDetails } from "@/utils/data_interface";
 import { useDrugDetails } from "@/utils/DrugDetailsContext";
-import { View } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import {
   Accordion,
   AccordionItem,
@@ -18,77 +18,68 @@ export default function Page() {
   const detail = useDrugDetails();
   // TODO: show skeleton for whole page while deatail is null
   // via useQuery return values
+  if (!detail) {
+    return (
+      <View className="flex flex-1 p-2">
+        <Text>MISSING DETAIL</Text>
+      </View>
+    );
+  }
   return (
     <View className="flex flex-1 p-2">
-      <Content
-        item={
-          detail ?? {
-            NAME: "<UNK>",
-            OVERVIEW: "Loading...",
-            CHARACTERSTICS: "Loading...",
-          }
-        }
-      />
+      <Content item={detail} />
     </View>
   );
 }
 
-function Content({ item }: { item: DrugDetails | null }) {
+function Content({ item }: { item: DrugDetails }) {
   return (
-    <View>
+    <ScrollView>
       <Accordion
         size="md"
         variant="unfilled"
         type="single"
         isCollapsible={false}
         isDisabled={false}
-        defaultValue={["a"]}
+        defaultValue={["OVERVIEW"]}
         className="border border-outline-200"
       >
-        <AccordionItem value="a">
-          <AccordionHeader>
-            <AccordionTrigger>
-              {({ isExpanded }) => {
-                return (
-                  <>
-                    <AccordionTitleText>Overview</AccordionTitleText>
-                    {isExpanded ? (
-                      <AccordionIcon as={ChevronUpIcon} className="ml-3" />
-                    ) : (
-                      <AccordionIcon as={ChevronDownIcon} className="ml-3" />
-                    )}
-                  </>
-                );
-              }}
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionContent>
-            <AccordionContentText>{item?.OVERVIEW}</AccordionContentText>
-          </AccordionContent>
-        </AccordionItem>
-        <Divider className="bg-slate-500" />
-        <AccordionItem value="b">
-          <AccordionHeader>
-            <AccordionTrigger>
-              {({ isExpanded }) => {
-                return (
-                  <>
-                    <AccordionTitleText>Characteristics</AccordionTitleText>
-                    {isExpanded ? (
-                      <AccordionIcon as={ChevronUpIcon} className="ml-3" />
-                    ) : (
-                      <AccordionIcon as={ChevronDownIcon} className="ml-3" />
-                    )}
-                  </>
-                );
-              }}
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionContent>
-            <AccordionContentText>{item?.CHARACTERSTICS}</AccordionContentText>
-          </AccordionContent>
-        </AccordionItem>
+        {Object.entries(item.INFO).map(([key, value], index, arr) => {
+          const isLast = index === arr.length - 1;
+          return (
+            <>
+              <AccordionItem value={key}>
+                <AccordionHeader>
+                  <AccordionTrigger>
+                    {({ isExpanded }) => {
+                      return (
+                        <>
+                          <AccordionTitleText>{key}</AccordionTitleText>
+                          {isExpanded ? (
+                            <AccordionIcon
+                              as={ChevronUpIcon}
+                              className="ml-3"
+                            />
+                          ) : (
+                            <AccordionIcon
+                              as={ChevronDownIcon}
+                              className="ml-3"
+                            />
+                          )}
+                        </>
+                      );
+                    }}
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionContent>
+                  <AccordionContentText>{value}</AccordionContentText>
+                </AccordionContent>
+              </AccordionItem>
+              {!isLast && <Divider className="bg-slate-500" />}
+            </>
+          );
+        })}
       </Accordion>
-    </View>
+    </ScrollView>
   );
 }

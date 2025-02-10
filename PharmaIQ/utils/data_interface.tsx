@@ -2,34 +2,58 @@ import React, { useEffect, useState, createContext, useContext } from "react";
 import { executeQuery } from "./db"; // Metro picks db.native.ts on native, db.web.ts on web
 
 // Define your DrugDetails interface as needed
-export interface DrugDetails {
-  NAME: string;
+export interface DrugInfo {
   OVERVIEW: string;
   CHARACTERSTICS: string;
+  INDICATIONS: string;
+  CONTRAINDICATIONS: string;
+  INTERACTIONS: string;
+  INTERFERENCE: string;
+  EFFECTS: string;
+  RISK: string;
+  WARNINING: string;
+  STORAGE: string;
+}
+export interface DrugDetails {
+  CODE: string;
+  NAME: string;
+  INFO: DrugInfo;
+}
+
+function nestDrugDetails(row: any): DrugDetails {
+  const { CODE, NAME, ...rest } = row;
+  return {
+    CODE,
+    NAME,
+    INFO: {
+      OVERVIEW: rest.OVERVIEW,
+      CHARACTERSTICS: rest.CHARACTERSTICS,
+      INDICATIONS: rest.INDICATIONS,
+      CONTRAINDICATIONS: rest.CONTRAINDICATIONS,
+      INTERACTIONS: rest.INTERACTIONS,
+      INTERFERENCE: rest.INTERFERENCE,
+      EFFECTS: rest.EFFECTS,
+      RISK: rest.RISK,
+      WARNINING: rest.WARNINING,
+      STORAGE: rest.STORAGE,
+    },
+  };
 }
 
 export async function fetchDrugDetails(
   drugName: string,
 ): Promise<DrugDetails | null> {
-  const query =
-    "SELECT name, overview, characterstics FROM drug WHERE name = ?";
-  const results = await executeQuery<DrugDetails>(query, [drugName]);
-  console.log("Raw query results:", results);
+  const query = "SELECT * FROM drug WHERE name = ?";
+  const flatResults = await executeQuery<any>(query, [drugName]);
 
-  if (!results || results.length === 0) {
-    console.log("No results found.");
+  if (!flatResults || flatResults.length === 0) {
+    console.log(`No results found for drug=${drugName}.`);
     return null;
   }
 
-  const drug = results[0];
-  console.log("Parsed drug details:", drug);
+  const drug = nestDrugDetails(flatResults[0]);
 
   return drug;
-  // return {
-  //   name: drug.name ?? "Unknown",
-  //   overview: drug.overview ?? "No Overview",
-  //   characteristics: drug.characteristics ?? "No Characteristics",
-  // };
 }
 
 async function loadSearchData(setData: (data: string[]) => void) {
