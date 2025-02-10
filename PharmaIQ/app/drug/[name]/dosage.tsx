@@ -74,12 +74,18 @@ function Content({ item }: { item: DrugDetails }) {
                 <AccordionContent>
                   <AccordionContentText>
                     <VStack>
-                      {Object.entries(value).map(([key, value]) => (
-                        <>
-                          <Text className="font-bold">{key}</Text>
-                          <Text>{value}</Text>
-                        </>
-                      ))}
+                      {value === null ? (
+                        <Text>No relevant information available.</Text>
+                      ) : (
+                        Object.entries(value).map(([key, value]) => (
+                          <>
+                            <Text>
+                              <Text className="font-bold">{key}: </Text>
+                              {value}
+                            </Text>
+                          </>
+                        ))
+                      )}
                     </VStack>
                   </AccordionContentText>
                 </AccordionContent>
