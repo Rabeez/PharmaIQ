@@ -3,17 +3,16 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import { SearchIcon } from "@/components/ui/icon";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
-import { fuzzySearch } from "@/utils/search";
+import { fuzzySearch, SearchRecord } from "@/utils/search";
 import { CustomList } from "@/components/SearchResultsTable";
 import { useDB } from "@/utils/data_interface";
 
 export default function Page() {
   // TODO: is this needed? shouldnt parent DBProvider pass this implicitly?
   const { data } = useDB();
-  const [results, setResults] = useState<string[]>([]);
+  const [results, setResults] = useState<SearchRecord[]>([]);
 
   const runFuzzySearch = (query: string) => {
-    // Replace with actual fuzzy search logic
     const matched = fuzzySearch(query, data);
     setResults(matched);
   };

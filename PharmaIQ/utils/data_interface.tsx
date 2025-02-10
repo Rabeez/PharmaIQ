@@ -1,5 +1,6 @@
 import React, { useEffect, useState, createContext, useContext } from "react";
 import { executeQuery } from "./db"; // Metro picks db.native.ts on native, db.web.ts on web
+import { SearchRecord } from "./search";
 
 // Define your DrugDetails interface as needed
 export interface DrugInfo {
@@ -113,20 +114,32 @@ export async function fetchDrugDetails(
   return drug;
 }
 
-async function loadSearchData(setData: (data: string[]) => void) {
-  const query = "SELECT NAME FROM DRUG";
+async function loadSearchData(setData: (data: SearchRecord[]) => void) {
+  let query_drug = "SELECT NAME FROM DRUG";
+  let query_brand = "SELECT BNAME FROM BRAND";
   try {
-    const results = await executeQuery<{ NAME: string }>(query);
-    setData(results.map((row) => row.NAME));
+    const results_drug = await executeQuery<{ NAME: string }>(query_drug);
+    const results_brand = await executeQuery<{ BNAME: string }>(query_brand);
+
+    const results = [
+      ...results_drug.map(
+        (row) => ({ type: "drug", name: row.NAME }) as SearchRecord,
+      ),
+      ...results_brand.map(
+        (row) => ({ type: "brand", name: row.BNAME }) as SearchRecord,
+      ),
+    ];
+
+    setData(results);
   } catch (error) {
     console.error("Failed to load drug names:", error);
     setData([]); // Fallback to empty array in case of failure
   }
 }
 
-export default function useDatabase(): string[] {
+export default function useDatabase(): SearchRecord[] {
   // TODO: useQuery spot
-  const [data, setData] = useState<string[]>([]);
+  const [data, setData] = useState<SearchRecord[]>([]);
 
   useEffect(() => {
     loadSearchData(setData);
@@ -138,7 +151,7 @@ export default function useDatabase(): string[] {
 // TODO: this is specifically for initial data (source for search)
 // need to make this better AND/OR use same TS interface for this and actual search/fetch function
 interface DBContextType {
-  data: string[];
+  data: SearchRecord[];
 }
 
 const DBContext = createContext<DBContextType>({ data: [] });

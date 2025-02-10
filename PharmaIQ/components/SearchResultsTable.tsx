@@ -3,20 +3,22 @@ import { Text, Pressable } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Divider } from "@/components/ui/divider";
 import { Heading } from "@/components/ui/heading";
+import { SearchRecord } from "@/utils/search";
 
 const CustomDivider = () => <Divider className="my-0.5" />;
 const SearchHeader = () => <Heading className="my-1">Search results</Heading>;
 
-// TODO: this should be union of two different types (drug and brand)
-// DB should return this type object
-type ListItemContents = string;
-
-function CustomListItem({ item }: { item: ListItemContents }) {
+function CustomListItem({ item }: { item: SearchRecord }) {
   // TODO: this function should switch on type and return relevant component
-  return <Text>{item}</Text>;
+  return (
+    <Text>
+      <Text className="font-bold">{item.type}</Text>
+      {item.name}
+    </Text>
+  );
 }
 
-export function CustomList({ results }: { results: ListItemContents[] }) {
+export function CustomList({ results }: { results: SearchRecord[] }) {
   // TODO: "scroll-to-top" button visible automatically for long lists etc
   // https://youtu.be/pZgjlh5ezd4?si=pypM7_5kkBwy6Q2Z&t=683
   return (
@@ -26,7 +28,11 @@ export function CustomList({ results }: { results: ListItemContents[] }) {
         <Link
           className="w-full"
           key={index}
-          href={`/drug/${encodeURIComponent(item)}/info`}
+          href={
+            item.type === "drug"
+              ? `/drug/${encodeURIComponent(item.name)}/info`
+              : `/brand/${encodeURIComponent(item.name)}/forms`
+          }
           asChild
         >
           <Pressable>
