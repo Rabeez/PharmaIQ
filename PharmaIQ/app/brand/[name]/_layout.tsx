@@ -30,7 +30,7 @@ export default function DrugTabsLayout() {
         <Stack.Screen name="[name]" options={{}} />
         <Tabs.Screen name="forms" options={{ title: "Forms" }} />
         <Tabs.Screen name="comp" options={{ title: "Composition" }} />
-        <Tabs.Screen name="brands" options={{ title: "Brands" }} />
+        <Tabs.Screen name="brands" options={{ title: "Alternate Brands" }} />
       </Tabs>
     </BrandDetailsContext.Provider>
   );
