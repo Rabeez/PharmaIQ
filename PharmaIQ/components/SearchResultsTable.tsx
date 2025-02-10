@@ -7,9 +7,12 @@ import { Heading } from "@/components/ui/heading";
 const CustomDivider = () => <Divider className="my-0.5" />;
 const SearchHeader = () => <Heading className="my-1">Search results</Heading>;
 
+// TODO: this should be union of two different types (drug and brand)
+// DB should return this type object
 type ListItemContents = string;
 
 function CustomListItem({ item }: { item: ListItemContents }) {
+  // TODO: this function should switch on type and return relevant component
   return <Text>{item}</Text>;
 }
 
