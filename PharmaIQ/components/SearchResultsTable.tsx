@@ -12,6 +12,7 @@ function SearchHeader({ title }: { title: string }) {
 }
 
 function CustomListItem({ item }: { item: SearchRecord }) {
+  // TODO: show icon based on type
   return (
     <Text>
       {item.type === "drug" ? (
