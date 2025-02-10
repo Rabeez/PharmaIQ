@@ -46,4 +46,4 @@ original
 data
 public
 .termdbms
-assets/data.db
+# assets/data.db
