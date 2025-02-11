@@ -15,7 +15,7 @@ function SearchHeader({ title }: { title: string }) {
 
 function CustomListItem({ item }: { item: SearchRecord }) {
   return (
-    <HStack className="h-8 w-full place-items-center align-middle">
+    <HStack className="w-full place-items-center align-middle">
       {item.type === "drug" ? (
         <Badge size="sm" variant="solid" className="bg-teal-300">
           <BadgeText>{item.type}</BadgeText>
@@ -25,7 +25,7 @@ function CustomListItem({ item }: { item: SearchRecord }) {
           <BadgeText>{item.type}</BadgeText>
         </Badge>
       )}
-      <Text>{item.name}</Text>
+      <Text className="text-lg">{item.name}</Text>
     </HStack>
   );
 }
