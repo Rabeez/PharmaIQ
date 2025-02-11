@@ -1,12 +1,14 @@
 import { BrandDetails, fetchBrandDetails } from "@/utils/data_interface";
 import BrandDetailsContext from "@/utils/BrandDetailsContext";
-import { Stack, Tabs, useLocalSearchParams, useNavigation } from "expo-router";
+import { Stack, Tabs, useGlobalSearchParams, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 
 export default function DrugTabsLayout() {
-  const { name } = useLocalSearchParams() as { name: string };
+  const { name } = useGlobalSearchParams() as { name: string };
   // TODO: Show company name as "subtitle"
   const [brandName, setBrandName] = useState<string>("");
+  // TODO: when navigating to drug page for second time previous drug's info
+  // is visible while new drug is loading. this should be shown as skeleton
   const [detail, setDetail] = useState<BrandDetails | null>(null);
   const navigation = useNavigation();
 
@@ -22,7 +24,6 @@ export default function DrugTabsLayout() {
   }, [name]);
 
   useEffect(() => {
-    // TODO: title isn't overwritten when navigating from secondary lists
     navigation.setOptions({ headerTitle: brandName });
   }, [brandName]);
 
