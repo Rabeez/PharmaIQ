@@ -320,8 +320,6 @@ export default function useDatabase(): SearchRecord[] {
   return data;
 }
 
-// TODO: this is specifically for initial data (source for search)
-// need to make this better AND/OR use same TS interface for this and actual search/fetch function
 interface DBContextType {
   data: SearchRecord[];
 }

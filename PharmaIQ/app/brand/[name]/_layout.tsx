@@ -3,7 +3,7 @@ import BrandDetailsContext from "@/utils/BrandDetailsContext";
 import { Stack, Tabs, useGlobalSearchParams, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 
-export default function DrugTabsLayout() {
+export default function BrandTabsLayout() {
   const { name } = useGlobalSearchParams() as { name: string };
   // TODO: Show company name as "subtitle"
   const [brandName, setBrandName] = useState<string>("");
