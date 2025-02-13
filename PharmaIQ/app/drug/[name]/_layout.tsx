@@ -2,6 +2,7 @@ import { DrugDetails, fetchDrugDetails } from "@/utils/data_interface";
 import DrugDetailsContext from "@/utils/DrugDetailsContext";
 import { Stack, Tabs, useGlobalSearchParams, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
+import { View, Text } from "react-native";
 
 export default function DrugTabsLayout() {
   const { name } = useGlobalSearchParams() as { name: string };
@@ -23,7 +24,13 @@ export default function DrugTabsLayout() {
   }, [name]);
 
   useEffect(() => {
-    navigation.setOptions({ headerTitle: drugName });
+    navigation.setOptions({
+      headerTitle: (_: any) => (
+        <View>
+          <Text>{drugName}</Text>
+        </View>
+      ),
+    });
   }, [drugName]);
 
   return (
