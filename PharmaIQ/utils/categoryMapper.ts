@@ -1,4 +1,4 @@
-const categoryMapping = {
+const categoryMapping: Record<string, string> = {
   // Tablets
   Tabs: "tablets",
   "Tabs SR": "tablets",
@@ -69,7 +69,7 @@ const categoryMapping = {
   "Tooth Paste": "tube",
 };
 
-function mapCategory(originalCategory) {
+function mapCategory(originalCategory: string): string {
   return categoryMapping[originalCategory] || "Other";
 }
 
