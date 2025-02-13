@@ -22,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { categoryIcon } from "@/components/CustomIcons";
 
 export default function Page() {
   const detail = useBrandDetails();
@@ -64,6 +65,7 @@ function Content({ item }: { item: BrandDetails }) {
                       return (
                         <>
                           <AccordionTitleText>{key}</AccordionTitleText>
+                          {categoryIcon(key)}
                           {isExpanded ? (
                             <AccordionIcon
                               as={ChevronUpIcon}

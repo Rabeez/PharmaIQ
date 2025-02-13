@@ -69,20 +69,6 @@ const categoryMapping: Record<string, string> = {
   "Tooth Paste": "tube",
 };
 
-function mapCategory(originalCategory: string): string {
+export function mapCategory(originalCategory: string): string {
   return categoryMapping[originalCategory] || "Other";
 }
-
-// // Example usage:
-// const originalCategories = [
-//   "Tabs",
-//   "Syrup",
-//   "Susp",
-//   "Inj",
-//   "Drops",
-//   "UnknownCategory",
-// ];
-//
-// const mappedCategories = originalCategories.map(mapCategory);
-// console.log(mappedCategories);
-// // Output: [ 'Tablet', 'Syrup', 'Syrup', 'Injection', 'Drops', 'Other' ]
