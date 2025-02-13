@@ -35,7 +35,6 @@ export default function Page() {
 function Content({ item }: { item: DrugDetails }) {
   return (
     <ScrollView>
-      {/* TODO: set header=disabled for empty contets */}
       <Accordion
         size="md"
         variant="unfilled"
@@ -49,7 +48,7 @@ function Content({ item }: { item: DrugDetails }) {
           const isLast = index === arr.length - 1;
           return (
             <>
-              <AccordionItem value={key}>
+              <AccordionItem value={key} isDisabled={value.length === 0}>
                 <AccordionHeader>
                   <AccordionTrigger>
                     {({ isExpanded }) => {

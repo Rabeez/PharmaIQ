@@ -45,7 +45,6 @@ export default function Page() {
 function Content({ item }: { item: BrandDetails }) {
   return (
     <ScrollView>
-      {/* TODO: set header=disabled for empty contets */}
       <Accordion
         size="md"
         variant="unfilled"
@@ -84,7 +83,7 @@ function Content({ item }: { item: BrandDetails }) {
                 <AccordionContent>
                   <AccordionContentText>
                     <VStack>
-                      {value === null || value.length === 0 ? (
+                      {value.length === 0 ? (
                         <Text>No relevant information available.</Text>
                       ) : (
                         // TODO: table looks super weird on native. maybe a width/padding issue
