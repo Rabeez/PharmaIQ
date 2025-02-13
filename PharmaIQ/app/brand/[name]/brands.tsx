@@ -26,9 +26,8 @@ function Content({ item }: { item: BrandDetails }) {
     <ScrollView className="h-full w-full">
       <CustomList
         results={item.BRANDS.map((val) => ({
-          code: val.code,
           type: "brand",
-          name: val.name,
+          data: { code: val.code, name: val.name },
         }))}
       />
     </ScrollView>

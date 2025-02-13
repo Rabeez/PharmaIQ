@@ -35,7 +35,7 @@ function CustomListItem({ item }: { item: SearchRecord }) {
           <BadgeText>{item.type}</BadgeText>
         </Badge>
       )}
-      <Text className="text-lg">{item.name}</Text>
+      <Text className="text-lg">{item.data.name}</Text>
     </HStack>
   );
 }
@@ -55,16 +55,18 @@ export function CustomList({
       <FlashList
         data={results}
         estimatedItemSize={62}
-        keyExtractor={(item, index) => `${item.type}-${item.code}-${index}`}
+        keyExtractor={(item, index) =>
+          `${item.type}-${item.data.code}-${index}`
+        }
         renderItem={({ item, index }) => {
-          const key = `${item.type}-${item.code}-${index}`;
+          const key = `${item.type}-${item.data.code}-${index}`;
           return (
             <Link
               className="w-full"
               href={
                 item.type === "drug"
-                  ? `/drug/${encodeURIComponent(item.name)}/info`
-                  : `/brand/${encodeURIComponent(item.name)}/forms`
+                  ? `/drug/${encodeURIComponent(item.data.name)}/info`
+                  : `/brand/${encodeURIComponent(item.data.name)}/forms`
               }
               asChild
             >

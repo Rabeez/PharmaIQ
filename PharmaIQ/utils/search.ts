@@ -1,9 +1,9 @@
 import Fuse from "fuse.js";
+import { Entry } from "./data_interface";
 
 export interface SearchRecord {
-  code: number;
   type: "drug" | "brand";
-  name: string;
+  data: Entry;
 }
 
 export function fuzzySearch(text: string, data: SearchRecord[]) {
@@ -14,7 +14,7 @@ export function fuzzySearch(text: string, data: SearchRecord[]) {
     includeScore: true,
     minMatchCharLength: 3,
     shouldSort: true,
-    keys: ["name"],
+    keys: ["data.name"],
   };
   const top = 30;
 

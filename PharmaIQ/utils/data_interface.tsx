@@ -282,14 +282,24 @@ async function loadSearchData(setData: (data: SearchRecord[]) => void) {
     );
 
     const results = [
-      ...results_drug.map(
-        (row) =>
-          ({ code: row.CODE, type: "drug", name: row.NAME }) as SearchRecord,
-      ),
-      ...results_brand.map(
-        (row) =>
-          ({ code: row.BID, type: "brand", name: row.BNAME }) as SearchRecord,
-      ),
+      ...results_drug.map((row) => {
+        return {
+          type: "drug",
+          data: {
+            code: row.CODE,
+            name: row.NAME,
+          },
+        } as SearchRecord;
+      }),
+      ...results_brand.map((row) => {
+        return {
+          type: "brand",
+          data: {
+            code: row.BID,
+            name: row.BNAME,
+          },
+        } as SearchRecord;
+      }),
     ];
 
     setData(results);
