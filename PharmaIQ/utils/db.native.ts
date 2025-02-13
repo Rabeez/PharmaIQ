@@ -15,25 +15,25 @@ async function prepareDatabase(name: string): Promise<void> {
   const asset = Asset.fromModule(require("../assets/data.db"));
   await asset.downloadAsync();
 
-  console.log("Asset localUri:", asset.localUri);
-  console.log("Asset uri:", asset.uri);
+  // console.log("Asset localUri:", asset.localUri);
+  // console.log("Asset uri:", asset.uri);
 
   // Use localUri if available; otherwise, fall back to asset.uri
   const sourceUri = asset.localUri || asset.uri;
   const destPath = DB_DIR + name;
-  console.log("Destination path:", destPath);
+  // console.log("Destination path:", destPath);
 
   // Check if the file already exists
   const fileInfo = await FileSystem.getInfoAsync(destPath);
-  console.log("Before copy, file info:", fileInfo);
+  // console.log("Before copy, file info:", fileInfo);
 
   if (!fileInfo.exists || fileInfo.size === 0) {
-    console.log("Copying file from:", sourceUri);
+    // console.log("Copying file from:", sourceUri);
     await FileSystem.copyAsync({ from: sourceUri, to: destPath });
   }
 
-  const newFileInfo = await FileSystem.getInfoAsync(destPath);
-  console.log("After copy, file info:", newFileInfo);
+  // const newFileInfo = await FileSystem.getInfoAsync(destPath);
+  // console.log("After copy, file info:", newFileInfo);
 }
 
 async function openDatabaseNative(name: string) {

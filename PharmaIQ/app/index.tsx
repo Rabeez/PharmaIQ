@@ -14,7 +14,6 @@ export default function Page() {
 
   const runFuzzySearch = (query: string) => {
     const matched = fuzzySearch(query, data);
-    console.log(`Matched: ${matched.length}`);
     setResults(matched);
   };
 
