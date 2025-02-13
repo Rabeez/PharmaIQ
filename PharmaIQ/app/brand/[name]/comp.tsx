@@ -25,7 +25,11 @@ function Content({ item }: { item: BrandDetails }) {
   return (
     <ScrollView className="h-full w-full">
       <CustomList
-        results={item.COMPOSITION.map((val) => ({ type: "drug", name: val }))}
+        results={item.COMPOSITION.map((val) => ({
+          code: val.code,
+          type: "drug",
+          name: val.name,
+        }))}
       />
     </ScrollView>
   );

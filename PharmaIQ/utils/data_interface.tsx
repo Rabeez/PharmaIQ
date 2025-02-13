@@ -2,7 +2,11 @@ import React, { useEffect, useState, createContext, useContext } from "react";
 import { executeQuery } from "./db"; // Metro picks db.native.ts on native, db.web.ts on web
 import { SearchRecord } from "./search";
 
-// Define your DrugDetails interface as needed
+export interface Entry {
+  code: number;
+  name: string;
+}
+
 export interface DrugInfo {
   OVERVIEW: string;
   CHARACTERSTICS: string;
@@ -31,7 +35,7 @@ export interface DrugDetails {
     PAEDIATRIC: DrugDosage | null;
     NEONATAL: DrugDosage | null;
   };
-  BRANDS: string[];
+  BRANDS: Entry[];
 }
 
 function nestDrugDosage(dosage: any): DrugDosage | null {
@@ -48,7 +52,7 @@ function nestDrugDosage(dosage: any): DrugDosage | null {
 function nestDrugDetails(
   info: any,
   dosage: { ADULT: any; PAEDIATRIC: any; NEONATAL: any },
-  brands: string[],
+  brands: Entry[],
 ): DrugDetails {
   const { CODE, NAME, ...rest } = info;
   return {
@@ -106,7 +110,7 @@ export async function fetchDrugDetails(
     flatResults_d_neonat = [null];
   }
 
-  let brands: string[] = [];
+  let brands: Entry[] = [];
   query = "SELECT BID FROM brand_drug WHERE DID = ?";
   let flatResults_rb = await executeQuery<any>(query, [drug_code]);
   if (!flatResults_rb || flatResults_rb.length === 0) {
@@ -115,12 +119,15 @@ export async function fetchDrugDetails(
   let codes = flatResults_rb.map((row) => row.BID);
   codes = Array.from(new Set(codes));
   const placeholders = codes.map(() => "?").join(",");
-  query = `SELECT DISTINCT bname FROM brand WHERE bid IN (${placeholders}) ORDER BY bname;`;
+  query = `SELECT DISTINCT bid, bname FROM brand WHERE bid IN (${placeholders}) ORDER BY bname;`;
   const flatResults_brands = await executeQuery<any>(query, codes);
   if (!flatResults_brands || flatResults_brands.length === 0) {
     console.log(`No brand names found for brands=${codes}.`);
   } else {
-    brands = flatResults_brands.map((row) => row.BNAME);
+    brands = flatResults_brands.map((row) => ({
+      code: row.BID,
+      name: row.BNAME,
+    }));
   }
 
   const drug = nestDrugDetails(
@@ -148,15 +155,15 @@ export interface BrandDetails {
   CODE: string;
   NAME: string;
   FORMS: Record<string, BrandForm[]>;
-  COMPOSITION: string[];
-  BRANDS: string[];
+  COMPOSITION: Entry[];
+  BRANDS: Entry[];
 }
 function nestBrandDetails(
   code: any,
   name: string,
   forms: Record<string, BrandForm[]>,
-  comps: string[],
-  brands: string[],
+  comps: Entry[],
+  brands: Entry[],
 ): BrandDetails {
   return {
     CODE: code,
@@ -201,7 +208,7 @@ export async function fetchBrandDetails(
   let codes = flatResults_bd.map((obj) => obj.DID);
   codes = Array.from(new Set(codes));
   let placeholders = codes.map(() => "?").join(",");
-  query = `SELECT DISTINCT name FROM drug WHERE code IN (${placeholders}) ORDER BY name;`;
+  query = `SELECT DISTINCT code, name FROM drug WHERE code IN (${placeholders}) ORDER BY name;`;
   let flatResults_comps = await executeQuery<any>(query, codes);
   if (!flatResults_comps || flatResults_comps.length === 0) {
     console.log(
@@ -209,9 +216,12 @@ export async function fetchBrandDetails(
     );
     flatResults_comps = [];
   }
-  const comps = flatResults_comps.map((row) => row.NAME);
+  const comps: Entry[] = flatResults_comps.map((row) => ({
+    code: row.code,
+    name: row.NAME,
+  }));
 
-  let brands: string[] = [];
+  let brands: Entry[] = [];
   query = `
   WITH brand_lists AS (
     SELECT BID, GROUP_CONCAT(DID, ',') AS drug_list
@@ -242,12 +252,15 @@ export async function fetchBrandDetails(
     codes = flatResults_rb.map((row) => row.BID);
     codes = Array.from(new Set(codes));
     placeholders = codes.map(() => "?").join(",");
-    query = `SELECT DISTINCT bname FROM brand WHERE bid IN (${placeholders}) ORDER BY bname;`;
+    query = `SELECT DISTINCT bid, bname FROM brand WHERE bid IN (${placeholders}) ORDER BY bname;`;
     const flatResults_brands = await executeQuery<any>(query, codes);
     if (!flatResults_brands || flatResults_brands.length === 0) {
       console.log(`No brand names found for alternate brands=${codes}.`);
     } else {
-      brands = flatResults_brands.map((row) => row.BNAME);
+      brands = flatResults_brands.map((row) => ({
+        code: row.bid,
+        name: row.BNAME,
+      }));
     }
   }
 
