@@ -258,18 +258,24 @@ export async function fetchBrandDetails(
 }
 
 async function loadSearchData(setData: (data: SearchRecord[]) => void) {
-  let query_drug = "SELECT NAME FROM DRUG";
-  let query_brand = "SELECT BNAME FROM BRAND";
+  let query_drug = "SELECT CODE, NAME FROM DRUG";
+  let query_brand = "SELECT BID, BNAME FROM BRAND";
   try {
-    const results_drug = await executeQuery<{ NAME: string }>(query_drug);
-    const results_brand = await executeQuery<{ BNAME: string }>(query_brand);
+    const results_drug = await executeQuery<{ CODE: number; NAME: string }>(
+      query_drug,
+    );
+    const results_brand = await executeQuery<{ BID: number; BNAME: string }>(
+      query_brand,
+    );
 
     const results = [
       ...results_drug.map(
-        (row) => ({ type: "drug", name: row.NAME }) as SearchRecord,
+        (row) =>
+          ({ code: row.CODE, type: "drug", name: row.NAME }) as SearchRecord,
       ),
       ...results_brand.map(
-        (row) => ({ type: "brand", name: row.BNAME }) as SearchRecord,
+        (row) =>
+          ({ code: row.BID, type: "brand", name: row.BNAME }) as SearchRecord,
       ),
     ];
 

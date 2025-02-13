@@ -1,6 +1,7 @@
 import Fuse from "fuse.js";
 
 export interface SearchRecord {
+  code: number;
   type: "drug" | "brand";
   name: string;
 }

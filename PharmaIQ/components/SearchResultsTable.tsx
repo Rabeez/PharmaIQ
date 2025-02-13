@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { Text, Pressable, View } from "react-native";
+import { Text, Pressable } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Divider } from "@/components/ui/divider";
 import { Heading } from "@/components/ui/heading";
@@ -43,22 +43,25 @@ export function CustomList({
     <FlashList
       data={results}
       estimatedItemSize={62}
-      keyExtractor={(item, index) => `${item.type}-${item.name}-${index}`}
-      renderItem={({ item, index }) => (
-        <Link
-          className="w-full"
-          href={
-            item.type === "drug"
-              ? `/drug/${encodeURIComponent(item.name)}/info`
-              : `/brand/${encodeURIComponent(item.name)}/forms`
-          }
-          asChild
-        >
-          <Pressable>
-            <CustomListItem item={item} />
-          </Pressable>
-        </Link>
-      )}
+      keyExtractor={(item, index) => `${item.type}-${item.code}-${index}`}
+      renderItem={({ item, index }) => {
+        const key = `${item.type}-${item.code}-${index}`;
+        return (
+          <Link
+            className="w-full"
+            href={
+              item.type === "drug"
+                ? `/drug/${encodeURIComponent(item.name)}/info`
+                : `/brand/${encodeURIComponent(item.name)}/forms`
+            }
+            asChild
+          >
+            <Pressable key={key}>
+              <CustomListItem item={item} />
+            </Pressable>
+          </Link>
+        );
+      }}
       ItemSeparatorComponent={CustomDivider}
       ListHeaderComponent={
         title ? () => <SearchHeader title={title} /> : undefined
