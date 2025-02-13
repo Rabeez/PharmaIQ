@@ -154,6 +154,7 @@ export interface BrandForm {
 export interface BrandDetails {
   CODE: string;
   NAME: string;
+  COMP_NAME: string;
   FORMS: Record<string, BrandForm[]>;
   COMPOSITION: Entry[];
   BRANDS: Entry[];
@@ -161,6 +162,7 @@ export interface BrandDetails {
 function nestBrandDetails(
   code: any,
   name: string,
+  company_name: string,
   forms: Record<string, BrandForm[]>,
   comps: Entry[],
   brands: Entry[],
@@ -168,6 +170,7 @@ function nestBrandDetails(
   return {
     CODE: code,
     NAME: name,
+    COMP_NAME: company_name,
     FORMS: forms,
     COMPOSITION: comps,
     BRANDS: brands,
@@ -177,7 +180,7 @@ function nestBrandDetails(
 export async function fetchBrandDetails(
   brandName: string,
 ): Promise<BrandDetails | null> {
-  let query = "SELECT BID FROM BRAND WHERE BNAME = ?";
+  let query = "SELECT BID, CID FROM BRAND WHERE BNAME = ?";
   let flatResults = await executeQuery<any>(query, [brandName]);
   if (!flatResults || flatResults.length === 0) {
     console.log(`No brand data found for brand=${brandName}.`);
@@ -185,6 +188,17 @@ export async function fetchBrandDetails(
   }
 
   const brand_code = flatResults[0].BID;
+  const company_code = flatResults[0].CID;
+
+  let company_name = "";
+  query = "SELECT NAME FROM COMPANY WHERE ID = ?";
+  const flatResults_company = await executeQuery<any>(query, [company_code]);
+  if (!flatResults_company || flatResults_company.length === 0) {
+    console.log(
+      `No company data found for brand=${brandName}, company_code=${company_code}.`,
+    );
+  }
+  company_name = flatResults_company[0].NAME;
 
   query = "SELECT * FROM BRAND_DRUG WHERE BID = ?";
   const flatResults_bd = await executeQuery<any>(query, [brand_code]);
@@ -264,7 +278,14 @@ export async function fetchBrandDetails(
     }
   }
 
-  const brand = nestBrandDetails(brand_code, brand_name, forms, comps, brands);
+  const brand = nestBrandDetails(
+    brand_code,
+    brand_name,
+    company_name,
+    forms,
+    comps,
+    brands,
+  );
   console.log("BRAND", brand);
 
   return brand;

@@ -2,11 +2,12 @@ import { BrandDetails, fetchBrandDetails } from "@/utils/data_interface";
 import BrandDetailsContext from "@/utils/BrandDetailsContext";
 import { Stack, Tabs, useGlobalSearchParams, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
+import { View, Text } from "react-native";
 
 export default function BrandTabsLayout() {
   const { name } = useGlobalSearchParams() as { name: string };
-  // TODO: Show company name as "subtitle"
   const [brandName, setBrandName] = useState<string>("");
+  const [companyName, setCompanyName] = useState<string>("");
   // TODO: when navigating to drug page for second time previous drug's info
   // is visible while new drug is loading. this should be shown as skeleton
   const [detail, setDetail] = useState<BrandDetails | null>(null);
@@ -24,8 +25,25 @@ export default function BrandTabsLayout() {
   }, [name]);
 
   useEffect(() => {
-    navigation.setOptions({ headerTitle: brandName });
+    navigation.setOptions({
+      headerTitle: (_: any) => (
+        <View>
+          <Text>{brandName}</Text>
+        </View>
+      ),
+    });
   }, [brandName]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: (_: any) => (
+        <View>
+          <Text>{brandName}</Text>
+          <Text className="text-gray-400">{detail?.COMP_NAME}</Text>
+        </View>
+      ),
+    });
+  }, [detail]);
 
   return (
     <BrandDetailsContext.Provider value={detail!}>
