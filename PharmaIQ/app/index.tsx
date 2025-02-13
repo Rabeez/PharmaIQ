@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { SearchIcon } from "@/components/ui/icon";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { fuzzySearch, SearchRecord } from "@/utils/search";
@@ -19,7 +19,15 @@ export default function Page() {
 
   return (
     <View className="flex flex-1 flex-col items-center gap-2 p-4 text-center md:px-6 md:py-24 lg:py-32 xl:py-48">
-      <Stack.Screen options={{ headerTitle: "Home" }} />
+      <Stack.Screen
+        options={{
+          headerTitle: (_: any) => (
+            <View>
+              <Text>Home</Text>
+            </View>
+          ),
+        }}
+      />
       <View className="w-full">
         <Input>
           <InputSlot className="pl-3">
