@@ -16,7 +16,7 @@ export function fuzzySearch(text: string, data: SearchRecord[]) {
     shouldSort: true,
     keys: ["name"],
   };
-  const top = 20;
+  const top = 30;
 
   const fuse = new Fuse(data, options);
   const result = fuse.search(text.trim());

@@ -18,7 +18,7 @@ export default function Page() {
   };
 
   return (
-    <View className="flex flex-col items-center gap-2 p-4 text-center md:px-6 md:py-24 lg:py-32 xl:py-48">
+    <View className="flex flex-1 flex-col items-center gap-2 p-4 text-center md:px-6 md:py-24 lg:py-32 xl:py-48">
       <Stack.Screen options={{ headerTitle: "Home" }} />
       <View className="w-full">
         <Input>
@@ -34,7 +34,6 @@ export default function Page() {
         </Input>
       </View>
 
-      {/* TODO: Scrolling not working here */}
       <View className="h-full w-full">
         {results.length > 0 && (
           <CustomList results={results} title="Search Results" />
