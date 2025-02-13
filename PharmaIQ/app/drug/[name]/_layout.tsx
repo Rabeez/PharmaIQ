@@ -28,8 +28,8 @@ export default function DrugTabsLayout() {
 
   return (
     <DrugDetailsContext.Provider value={detail!}>
+      <Stack.Screen name="[name]" options={{}} />
       <Tabs screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="[name]" options={{}} />
         <Tabs.Screen name="info" options={{ title: "Info" }} />
         <Tabs.Screen name="dosage" options={{ title: "Dosage" }} />
         <Tabs.Screen name="brands" options={{ title: "Brands" }} />
