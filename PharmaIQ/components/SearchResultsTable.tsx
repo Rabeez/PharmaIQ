@@ -7,7 +7,9 @@ import { SearchRecord } from "@/utils/search";
 import { Badge, BadgeText } from "./ui/badge";
 import { HStack } from "./ui/hstack";
 
-const CustomDivider = () => <Divider className="my-0.5" />;
+function CustomDivider() {
+  return <Divider className="my-0.5 bg-slate-300" />;
+}
 
 function SearchHeader({ title }: { title: string }) {
   return <Heading className="my-1">{title}</Heading>;
@@ -15,13 +17,21 @@ function SearchHeader({ title }: { title: string }) {
 
 function CustomListItem({ item }: { item: SearchRecord }) {
   return (
-    <HStack className="w-full place-items-center align-middle">
+    <HStack className="w-full place-items-center  p-1 align-middle">
       {item.type === "drug" ? (
-        <Badge size="sm" variant="solid" className="bg-teal-300">
+        <Badge
+          size="sm"
+          variant="solid"
+          className="mr-2 w-[15%] justify-center rounded-full bg-teal-300"
+        >
           <BadgeText>{item.type}</BadgeText>
         </Badge>
       ) : (
-        <Badge size="sm" variant="solid" className="bg-orange-300">
+        <Badge
+          size="sm"
+          variant="solid"
+          className="mr-2 w-[15%] justify-center rounded-full bg-orange-300"
+        >
           <BadgeText>{item.type}</BadgeText>
         </Badge>
       )}
