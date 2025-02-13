@@ -7,13 +7,12 @@ export interface SearchRecord {
 }
 
 export function fuzzySearch(text: string, data: SearchRecord[]) {
-  // TODO: see if there is option to skip any records with less-than threshold score
-  // to avoid making extra large search results list with bad results
   const options = {
     isCaseSensitive: false,
     includeScore: true,
     minMatchCharLength: 3,
     shouldSort: true,
+    threshold: 0.5,
     keys: ["data.name"],
   };
   const top = 30;
