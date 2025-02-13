@@ -14,6 +14,7 @@ export default function Page() {
 
   const runFuzzySearch = (query: string) => {
     const matched = fuzzySearch(query, data);
+    console.log(`Matched: ${matched.length}`);
     setResults(matched);
   };
 
@@ -35,7 +36,7 @@ export default function Page() {
       </View>
 
       {/* TODO: Scrolling not working here */}
-      <View className="w-full">
+      <View className="h-full w-full">
         {results.length > 0 && (
           <CustomList results={results} title="Search Results" />
         )}

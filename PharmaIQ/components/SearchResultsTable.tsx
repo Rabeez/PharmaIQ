@@ -40,9 +40,9 @@ export function CustomList({
   // TODO: "scroll-to-top" button visible automatically for long lists etc
   // https://youtu.be/pZgjlh5ezd4?si=pypM7_5kkBwy6Q2Z&t=683
   return (
-    // TODO: setup estimated item size
     <FlashList
       data={results}
+      estimatedItemSize={62}
       renderItem={({ item, index }) => (
         <Link
           className="w-full"
