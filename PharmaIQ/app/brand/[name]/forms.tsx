@@ -87,6 +87,7 @@ function Content({ item }: { item: BrandDetails }) {
                       {value === null || value.length === 0 ? (
                         <Text>No relevant information available.</Text>
                       ) : (
+                        // TODO: table looks super weird on native. maybe a width/padding issue
                         <Table className="w-full">
                           <TableHeader>
                             <TableRow>
