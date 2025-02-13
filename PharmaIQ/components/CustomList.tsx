@@ -16,6 +16,7 @@ function SearchHeader({ title }: { title: string }) {
 }
 
 function CustomListItem({ item }: { item: SearchRecord }) {
+  // TODO: render company name as "subtitle" for brands
   return (
     <HStack className="w-full place-items-center  p-1 align-middle">
       {item.type === "drug" ? (
