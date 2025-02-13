@@ -43,10 +43,10 @@ export function CustomList({
     <FlashList
       data={results}
       estimatedItemSize={62}
+      keyExtractor={(item, index) => `${item.type}-${item.name}-${index}`}
       renderItem={({ item, index }) => (
         <Link
           className="w-full"
-          key={index}
           href={
             item.type === "drug"
               ? `/drug/${encodeURIComponent(item.name)}/info`
