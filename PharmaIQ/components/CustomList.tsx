@@ -50,6 +50,8 @@ export function CustomList({
 }) {
   // TODO: "scroll-to-top" button visible automatically for long lists etc
   // https://youtu.be/pZgjlh5ezd4?si=pypM7_5kkBwy6Q2Z&t=683
+
+  // TODO: setup keyboard dismiss on scroll of list
   return (
     <View className="flex-1">
       {title && <SearchHeader title={title} />}
