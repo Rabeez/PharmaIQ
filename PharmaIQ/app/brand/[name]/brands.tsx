@@ -23,7 +23,7 @@ export default function Page() {
 
 function Content({ item }: { item: BrandDetails }) {
   return (
-    <ScrollView>
+    <ScrollView className="h-full w-full">
       <CustomList
         results={item.BRANDS.map((val) => ({ type: "brand", name: val }))}
       />

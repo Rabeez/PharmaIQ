@@ -23,7 +23,7 @@ export default function Page() {
 
 function Content({ item }: { item: BrandDetails }) {
   return (
-    <ScrollView>
+    <ScrollView className="h-full w-full">
       <CustomList
         results={item.COMPOSITION.map((val) => ({ type: "drug", name: val }))}
       />
