@@ -1,7 +1,7 @@
 import { DrugDetails } from "@/utils/data_interface";
 import { useDrugDetails } from "@/utils/DrugDetailsContext";
 import { View, Text, ScrollView } from "react-native";
-import { CustomList } from "@/components/SearchResultsTable";
+import { CustomList } from "@/components/CustomList";
 
 export default function Page() {
   const detail = useDrugDetails();

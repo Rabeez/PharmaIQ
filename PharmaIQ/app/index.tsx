@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { SearchIcon } from "@/components/ui/icon";
 import { Input, InputField, InputIcon, InputSlot } from "@/components/ui/input";
 import { fuzzySearch, SearchRecord } from "@/utils/search";
-import { CustomList } from "@/components/SearchResultsTable";
+import { CustomList } from "@/components/CustomList";
 import { useDB } from "@/utils/data_interface";
 
 export default function Page() {

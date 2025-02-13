@@ -1,7 +1,7 @@
 import { BrandDetails } from "@/utils/data_interface";
 import { View, Text, ScrollView } from "react-native";
 import { useBrandDetails } from "@/utils/BrandDetailsContext";
-import { CustomList } from "@/components/SearchResultsTable";
+import { CustomList } from "@/components/CustomList";
 
 export default function Page() {
   const detail = useBrandDetails();
