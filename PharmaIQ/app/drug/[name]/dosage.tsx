@@ -36,6 +36,7 @@ export default function Page() {
 function Content({ item }: { item: DrugDetails }) {
   return (
     <ScrollView>
+      {/* TODO: set header=disabled for empty contets */}
       <Accordion
         size="md"
         variant="unfilled"
